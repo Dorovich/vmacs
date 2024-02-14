@@ -70,24 +70,11 @@
       org-fontify-todo-headline t
       org-fontify-whole-heading-line t
       image-use-external-converter t)
-;; (with-eval-after-load 'org
-;;   (let ((mixed-font 'fixed-pitch))
-;;     (set-face-attribute 'org-block nil :inherit mixed-font)
-;;     (set-face-attribute 'org-block-begin-line nil :inherit mixed-font)
-;;     (set-face-attribute 'org-block-end-line nil :inherit mixed-font)
-;;     (set-face-attribute 'org-code nil :inherit mixed-font)
-;;     (set-face-attribute 'org-document-info-keyword nil :inherit mixed-font)
-;;     (set-face-attribute 'org-meta-line nil :inherit mixed-font)
-;;     (set-face-attribute 'org-table nil :inherit mixed-font)
-;;     (set-face-attribute 'org-verbatim nil :inherit mixed-font))
-;;   (set-face-attribute 'org-level-1 nil :height 1.4)
-;;   (set-face-attribute 'org-level-2 nil :height 1.3)
-;;   (set-face-attribute 'org-level-3 nil :height 1.2)
-;;   (set-face-attribute 'org-level-4 nil :height 1.1)
-;;   (set-face-attribute 'org-level-5 nil :height 1.1))
 
 ;; Agrupar mejor y borrar sin problema
 (setq ibuffer-expert t
+      ibuffer-show-empty-filter-groups nil
+      ibuffer-display-summary nil
       ibuffer-saved-filter-groups '(("default"
                                      ("Dired" (mode . dired-mode))
                                      ("ERC" (mode . erc-mode))
