@@ -1,0 +1,6 @@
+#+title: config
+#+options: date:nil \n:t author:nil toc:nil
+
+Otra configuración de [[https://www.gnu.org/software/emacs/][GNU Emacs]].
+
+[[file:etc/scrot.png]]
