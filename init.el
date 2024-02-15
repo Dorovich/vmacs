@@ -172,25 +172,23 @@
 (use-package modus-themes
   :config
   (setq modus-themes-mixed-fonts t
+        modus-themes-bold-constructs t
+        modus-themes-italic-constructs t
+        modus-themes-disable-other-themes t
         modus-themes-headings '((0 . (1.2))
                                 (1 . (1.4))
                                 (2 . (1.3))
                                 (3 . (1.2))
-                                (4 . (1.1)))
-        modus-vivendi-palette-overrides '((cursor yellow-faint)
-                                          (fg-heading-1 yellow-cooler)
-                                          (fg-heading-2 maroon)
-                                          (fg-heading-3 indigo)
-                                          (fg-heading-4 olive))))
+                                (4 . (1.1)))))
 
 ;; Otros colores chulos
 (use-package standard-themes
   :config
-  (setq standard-themes-bold-constructs t
-	standard-themes-italic-constructs t
-	standard-themes-mixed-fonts t
-	standard-themes-disable-other-themes t
-	standard-themes-headings '((0 . (1.2))
+  (setq standard-themes-mixed-fonts t
+        standard-themes-bold-constructs t
+        standard-themes-italic-constructs t
+        standard-themes-disable-other-themes t
+        standard-themes-headings '((0 . (1.2))
                                    (1 . (1.4))
                                    (2 . (1.3))
                                    (3 . (1.2))

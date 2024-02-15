@@ -10,6 +10,10 @@
 ;; Desactivar la barra de herramientas
 (tool-bar-mode -1)
 
+;; No mostrar pantalla de inicio si se está abriendo algo
+(when (cdr command-line-args)
+  (setq inhibit-startup-screen t))
+
 ;; Parámetros por defecto de la ventana
 (setq default-frame-alist '((alpha . 100)
                             (vertical-scroll-bars . nil)
