@@ -9,7 +9,7 @@
 (save-place-mode 1)
 
 ;; Guardar variables personalizadas en otro archivo
-(setq custom-file (locate-user-emacs-file "custom-vars.el"))
+(setq custom-file (locate-user-emacs-file "custom.el"))
 
 ;; Desactivar ventanas de diálogo gráficas
 (setq use-dialog-box nil)
@@ -38,6 +38,9 @@
 ;; Completar mejor
 (setq completion-styles '(emacs22 basic initials substring))
 
+;; Cambiar ventana con alt+flechas
+(windmove-default-keybindings 'meta)
+
 ;; Hacer cosas interactivamente en el minibúfer
 (fido-mode 1)
 
@@ -59,6 +62,10 @@
 (set-face-attribute 'variable-pitch nil :family "Noto Serif")
 (add-hook 'text-mode-hook 'turn-on-visual-line-mode)
 (add-hook 'text-mode-hook (lambda () (variable-pitch-mode 1)))
+
+;; Símbolos bonitos
+(defconst lisp--prettify-symbols-alist '(("lambda" . ?λ)))
+(global-prettify-symbols-mode 1)
 
 ;; Preparar org-mode
 (setq org-pretty-entities t
@@ -117,11 +124,12 @@
 
 ;; Mantener el directorio de configuración limpio
 (use-package no-littering
-  :demand t
   :config
   (setq custom-file (no-littering-expand-etc-file-name "custom.el"))
   (add-to-list 'recentf-exclude (recentf-expand-file-name no-littering-var-directory))
-  (add-to-list 'recentf-exclude (recentf-expand-file-name no-littering-etc-directory)))
+  (add-to-list 'recentf-exclude (recentf-expand-file-name no-littering-etc-directory))
+  (when (bound-and-true-p recentf-mode) (load-file recentf-save-file))
+  (when (bound-and-true-p savehist-mode) (load-file savehist-file)))
 
 ;; Cargar archivo personalizado
 (load custom-file 'noerror 'nomessage)
@@ -152,6 +160,13 @@
 (use-package pulsar
   :config
   (pulsar-global-mode 1))
+
+;; Mostrar aciertos
+(use-package anzu
+  :config
+  (global-anzu-mode 1)
+  (global-set-key [remap query-replace] 'anzu-query-replace)
+  (global-set-key [remap query-replace-regexp] 'anzu-query-replace-regexp))
 
 ;; Colores rebuenos
 (use-package modus-themes
