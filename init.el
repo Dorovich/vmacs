@@ -28,6 +28,9 @@
 ;; Sobreescribir la región seleccionada
 (delete-selection-mode 1)
 
+;; Respetar tabulaciones
+(setq backward-delete-char-untabify-method 'hungry)
+
 ;; Mostrar parejas
 (show-paren-mode 1)
 
@@ -195,3 +198,6 @@
                                    (4 . (1.1))))
   (define-key global-map (kbd "<f5>") #'standard-themes-toggle)
   (standard-themes-load-dark))
+
+;; Estilo C del kernel
+(load-file (expand-file-name "kernel.el" user-emacs-directory))
