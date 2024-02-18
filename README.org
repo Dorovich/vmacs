@@ -3,3 +3,6 @@
 Otra configuración más de [[https://www.gnu.org/software/emacs/][GNU Emacs]].
 
 [[file:etc/scrot.png]]
+
+Referencias
+-  /The original magic Emacs garbage collection hack/, Andrea Corallo. (https://akrl.sdf.org/#orgc15a10d)

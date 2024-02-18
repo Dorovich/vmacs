@@ -47,9 +47,13 @@
 ;; Hacer cosas interactivamente en el minibúfer
 (fido-mode 1)
 
-;; Usar Ibuffer y confirmaciones abreviadas
+;; Usar Ibuffer en vez de buffer-list
 (defalias 'list-buffers 'ibuffer)
-(defalias 'yes-or-no-p 'y-or-n-p)
+
+;; Confirmaciones abreviadas
+(if (version<= emacs-version "28")
+    (defalias 'yes-or-no-p 'y-or-n-p)
+  (setq use-short-answers t))
 
 ;; Ignorar mayúsculas al buscar
 (setq read-file-name-completion-ignore-case t

@@ -1,11 +1,25 @@
+;; Calcular tiempos
+(defmacro k-time (&rest body)
+  "Measure and return the time it takes evaluating BODY."
+  `(let ((time (current-time)))
+     ,@body
+     (float-time (time-since time))))
+
+;; Margen de 1GB para el recolector de basura
+(setq gc-cons-threshold #x40000000)
+
+;; Recoger basura cuando se está inactivo durante 15s
+(defvar k-gc-timer
+  (run-with-idle-timer 15 t
+                       (lambda ()
+                         (message "Garbage Collector has run for %.06fsec"
+                                  (k-time (garbage-collect))))))
+
 ;; Colocar caché en un lugar mejor
 (when (fboundp 'startup-redirect-eln-cache)
   (startup-redirect-eln-cache
     (convert-standard-filename
       (expand-file-name "var/eln-cache/" user-emacs-directory))))
-
-;; Dejar un margen de 50MB
-(setq gc-cons-threshold (* 50 1000 1000))
 
 ;; Desactivar la barra de herramientas
 (tool-bar-mode -1)
