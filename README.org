@@ -6,3 +6,5 @@ Otra configuración más de [[https://www.gnu.org/software/emacs/][GNU Emacs]].
 
 Referencias
 -  /The original magic Emacs garbage collection hack/, Andrea Corallo. (https://akrl.sdf.org/#orgc15a10d)
+- /My packages and/or custom code for GNU Emacs/, Protesilaos Stavrou. (https://protesilaos.com/emacs/)
+- /Awesome Emacs/. (https://github.com/emacs-tw/awesome-emacs)
