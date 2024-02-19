@@ -2,7 +2,9 @@
 
 Otra configuración más de [[https://www.gnu.org/software/emacs/][GNU Emacs]].
 
-> ¿Cansado/a de ir saltando entre terminales, programas de terminal y editores de texto?
+#+begin_quote
+¿Cansado/a de ir saltando entre terminales, programas de terminal y editores de texto?
+#+end_quote
 
 [[file:etc/scrot.png]]
 
