@@ -1,6 +1,6 @@
 #+options: date:nil \n:t author:nil toc:nil
 
-Otra configuración más de [[https://www.gnu.org/software/emacs/][GNU Emacs]].
+* Otra configuración más de [[https://www.gnu.org/software/emacs/][GNU Emacs]].
 
 #+begin_quote
 ¿Cansado/a de ir saltando entre terminales, programas de terminal y editores de texto?
@@ -8,7 +8,7 @@ Otra configuración más de [[https://www.gnu.org/software/emacs/][GNU Emacs]].
 
 [[file:etc/scrot.png]]
 
-Referencias
+* Referencias
 - /[[https://akrl.sdf.org/#orgc15a10d][The original magic Emacs garbage collection hack]]/, Andrea Corallo.
 - /[[https://systemcrafters.net/emacs-from-scratch/][Emacs From Scratch]]/, David Wilson (aka /Systemcrafters/)
 - /[[https://protesilaos.com/emacs/][My packages and/or custom code for GNU Emacs]]/, Protesilaos Stavrou.
