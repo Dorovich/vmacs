@@ -1,3 +1,6 @@
+;; Detectar si estoy en mi portátil
+(defconst is-laptop (string= (system-name) "colmena"))
+
 ;; Recordar archivos más recientes
 (recentf-mode 1)
 
@@ -120,10 +123,11 @@
     (write-file (concat "/sudo:root@localhost:" buffer-file-name))))
 
 ;; Esconder el menú y mostrar batería y hora en mi portátil
-(when (string= (system-name) "colmena")
+(when is-laptop
   (menu-bar-mode -1)
   (display-battery-mode 1)
-  (display-time-mode 1))
+  (display-time-mode 1)
+  (setq display-time-format "%H:%M"))
 
 ;; Añadir MELPA e inicializar
 (require 'package)
@@ -180,6 +184,16 @@
   (global-anzu-mode 1)
   (global-set-key [remap query-replace] 'anzu-query-replace)
   (global-set-key [remap query-replace-regexp] 'anzu-query-replace-regexp))
+
+;; Emular un terminal
+(use-package eat
+  :config
+  (setq eat-kill-buffer-on-exit t
+	eat-enable-mouse t))
+
+;; Cliente de git
+(use-package magit
+  :commands magit-status)
 
 ;; Colores rebuenos
 (use-package modus-themes
