@@ -191,6 +191,8 @@
 ;; Emular un terminal
 (use-package eat
   :config
+  (add-hook 'eshell-load-hook #'eat-eshell-mode)
+  (add-hook 'eshell-load-hook #'eat-eshell-visual-command-mode)
   (setq eat-kill-buffer-on-exit t
 	eat-enable-mouse t))
 
