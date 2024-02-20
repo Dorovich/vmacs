@@ -21,6 +21,9 @@
 (global-auto-revert-mode 1)
 (setq global-auto-revert-non-file-buffers t)
 
+;; Abrir archivos de sólo lectura en view-mode
+(setq view-read-only t)
+
 ;; Desactivar copias de seguridad
 (setq make-backup-files nil)
 
