@@ -15,4 +15,4 @@
 - /[[https://www.youtube.com/playlist?list=PL5--8gKSku15e8lXf7aLICFmAHQVo0KXX][Configuring Emacs]]/, Derek Taylor (aka /DistroTube/)
 - /[[https://jwiegley.github.io/use-package/][A use-package declaration for simplifying your .emacs]]/, John Wiegley.
 - /[[https://github.com/emacs-tw/awesome-emacs][Awesome Emacs]]/, Emacs community @ Taiwan.
--/([[https://karthinks.com/software/more-batteries-included-with-emacs/][More]]) [[https://karthinks.com/software/batteries-included-with-emacs/][Batteries included with Emacs]]/, Karthinks
+- /([[https://karthinks.com/software/more-batteries-included-with-emacs/][More]]) [[https://karthinks.com/software/batteries-included-with-emacs/][Batteries included with Emacs]]/, Karthinks
