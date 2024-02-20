@@ -1,12 +1,19 @@
 #+options: date:nil \n:t author:nil toc:nil
 
 * Otra configuración más de [[https://www.gnu.org/software/emacs/][GNU Emacs]].
-
 #+begin_quote
-¿Cansado/a de ir saltando entre terminales, programas de terminal y editores de texto?
+¿Cansado/a de ir saltando entre terminales, programas varios y editores de texto?
+¿Quizá te interesa escribir un documento o un texto profesional?
+Emacs ofrece una interfaz cohesionada para todo ello.
 #+end_quote
 
 [[file:etc/scrot.png]]
+
+* Por dónde empezar
+Si acabas de empezar, recomiento que hagas el tutorial interactivo que incluye Emacs. Para iniciarlo pulsa =C-h t=, es decir, "Control+h" seguido de "t".
+Otra opción que puede interesar si aún no dominas las teclas (o no tienes interés en hacerlo) es el modo CUA (Common User Acess). Puedes activarlo en el menú pulsando =Options --> Cut/Paste with C-x/C-c/C-v (CUA Mode)=, o bien pulsando =M-x RET cua-mode RET= (Alt+x, Enter, cua-mode, Enter) si no tienes interfaz gráfica.
+Si quieres cambiar el tema de Emacs puedes usar el menú gráfico (=Options --> Customize Emacs --> Custom Themes=) o bien pulsando =M-x RET load-theme= y buscando un tema de tu agrado.
+Si te interesa el porqué Emacs es tan bueno, aquí tienes dos ejemplos que han convencido a muchos: [[https://orgmode.org/][Org-mode]] y [[https://magit.vc/][Magit]].
 
 * Referencias
 - /[[https://akrl.sdf.org/#orgc15a10d][The original magic Emacs garbage collection hack]]/, Andrea Corallo.
