@@ -4,6 +4,7 @@
 #+begin_quote
 ¿Cansado/a de ir saltando entre terminales, programas varios y editores de texto? \\
 ¿Quizá te interesa escribir un documento o un texto profesional? \\
+
 Emacs ofrece una interfaz cohesionada para todo ello.
 #+end_quote
 
