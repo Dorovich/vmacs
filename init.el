@@ -119,6 +119,12 @@
       (write-file (concat "/sudo:root@localhost:" (ido-read-file-name "File:")))
     (write-file (concat "/sudo:root@localhost:" buffer-file-name))))
 
+;; Esconder el menú y mostrar batería y hora en mi portátil
+(when (string= (system-name) "colmena")
+  (menu-bar-mode -1)
+  (display-battery-mode 1)
+  (display-time-mode 1))
+
 ;; Añadir MELPA e inicializar
 (require 'package)
 (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
