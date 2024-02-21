@@ -200,6 +200,9 @@
 (use-package magit
   :commands magit-status)
 
+;; Modo mejorado para PDFs
+(use-package pdf-tools)
+
 ;; Colores rebuenos
 (use-package modus-themes
   :config
