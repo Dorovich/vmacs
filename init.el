@@ -201,7 +201,10 @@
   :commands magit-status)
 
 ;; Modo mejorado para PDFs
-(use-package pdf-tools)
+(use-package pdf-tools
+  :config
+  (pdf-tools-install)
+  (setq pdf-view-display-size 'fit-page))
 
 ;; Colores rebuenos
 (use-package modus-themes
