@@ -39,16 +39,13 @@ Una vez instaladas las dependencias hay que obtener el código fuente:
 Entra a la carpeta donde se ha clonado el repositorio. Ahora procede con la configuración previa a la compilación (para más información sobre las posibles funcionalidades con las que se compila Emacs puedes ejecutar =./configure --help= y leer sobre ellas. Añade o elimina las que quieras):
 #+begin_src sh
   export CC=/usr/bin/gcc-12 CXX=/usr/bin/g++-12
-
   ./autogen.sh
-
   ./configure --with-native-compilation --with-pgtk --with-x-toolkit=gtk3 --with-tree-sitter --with-wide-int --with-json --with-gnutls --with-mailutils --without-pop --with-cairo --with-imagemagick
 #+end_src
 
 Por último, compilamos e instalamos (para más info sobre las CFLAGS usadas ver el manual de GCC, =man gcc=):
 #+begin_src sh
   CFLAGS="-O2 -pipe -mtune=native -march=native -fomit-frame-pointer"
-
   make -j$(nproc) NATIVE_FULL_AOT=1
   sudo make install
 #+end_src
