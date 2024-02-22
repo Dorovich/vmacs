@@ -24,6 +24,9 @@
 ;; Abrir archivos de sólo lectura en view-mode
 (setq view-read-only t)
 
+;; Cargar versiones nuevas de los archivos
+(setq load-prefer-newer t)
+
 ;; Desactivar copias de seguridad
 (setq make-backup-files nil)
 
@@ -79,17 +82,6 @@
 ;; Símbolos bonitos
 (defconst lisp--prettify-symbols-alist '(("lambda" . ?λ)))
 (global-prettify-symbols-mode 1)
-
-;; Preparar org-mode
-(setq org-pretty-entities t
-      org-hide-leading-stars t
-      org-startup-indented t
-      org-startup-align-all-tables t
-      org-return-follows-link t
-      org-html-validation-link nil
-      org-fontify-todo-headline t
-      org-fontify-whole-heading-line t
-      image-use-external-converter t)
 
 ;; Agrupar mejor y borrar sin problema
 (setq ibuffer-expert t
@@ -154,12 +146,26 @@
 ;; Cargar archivo personalizado
 (load custom-file 'noerror 'nomessage)
 
+;; Preparar org-mode
+(use-package org
+  :defer t
+  :config
+  (setq org-pretty-entities t
+	org-hide-leading-stars t
+	org-startup-indented t
+	org-startup-align-all-tables t
+	org-return-follows-link t
+	org-html-validation-link nil
+	org-fontify-todo-headline t
+	org-fontify-whole-heading-line t
+	image-use-external-converter t))
+
 ;; Deshacer puro y duro
 (use-package undo-fu
-  :config
+  :init
   (global-unset-key (kbd "C-z"))
-  (global-set-key (kbd "C-z")   'undo-fu-only-undo)
-  (global-set-key (kbd "C-S-z") 'undo-fu-only-redo))
+  :bind (("C-z" . 'undo-fu-only-undo)
+	 ("C-S-z" . 'undo-fu-only-redo)))
 
 ;; Ventanita de autocompletado
 (use-package corfu
@@ -190,6 +196,7 @@
 
 ;; Emular un terminal
 (use-package eat
+  :commands (eat eat-eshell-mode eat-eshell-visual-command-mode)
   :config
   (add-hook 'eshell-load-hook #'eat-eshell-mode)
   (add-hook 'eshell-load-hook #'eat-eshell-visual-command-mode)
