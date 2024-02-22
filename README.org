@@ -40,13 +40,13 @@ Entra a la carpeta donde se ha clonado el repositorio. Ahora procede con la conf
 #+begin_src sh
   export CC=/usr/bin/gcc-12 CXX=/usr/bin/g++-12
   ./autogen.sh
-  ./configure --with-native-compilation --with-pgtk --with-x-toolkit=gtk3 --with-tree-sitter --with-wide-int --with-json --with-gnutls --with-mailutils --without-pop --with-cairo --with-imagemagick
+  ./configure --with-native-compilation --with-x-toolkit=gtk3 --with-tree-sitter --with-wide-int --with-json --with-gnutls --with-mailutils --without-pop --with-cairo --with-imagemagick
 #+end_src
 
 Por último, compilamos e instalamos (para más info sobre las CFLAGS usadas ver el manual de GCC, =man gcc=):
 #+begin_src sh
   CFLAGS="-O2 -pipe -mtune=native -march=native -fomit-frame-pointer"
-  make -j$(nproc) NATIVE_FULL_AOT=1
+  make -j$(nproc --ignore=2) NATIVE_FULL_AOT=1
   sudo make install
 #+end_src
 
