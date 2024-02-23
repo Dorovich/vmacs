@@ -79,6 +79,9 @@
 (add-hook 'text-mode-hook 'turn-on-visual-line-mode)
 (add-hook 'text-mode-hook (lambda () (variable-pitch-mode 1)))
 
+;; Abrir ediff en el mismo frame
+(setq ediff-window-setup-function 'ediff-setup-windows-plain)
+
 ;; Símbolos bonitos
 (defconst lisp--prettify-symbols-alist '(("lambda" . ?λ)))
 (global-prettify-symbols-mode 1)
