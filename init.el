@@ -212,8 +212,9 @@
 
 ;; Modo mejorado para PDFs
 (use-package pdf-tools
+  :magic ("%PDF" . pdf-view-mode)
   :config
-  (pdf-tools-install)
+  (pdf-loader-install)
   (setq pdf-view-display-size 'fit-page))
 
 ;; Colores rebuenos
