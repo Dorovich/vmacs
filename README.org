@@ -19,6 +19,23 @@ Si quieres cambiar el tema de Emacs puedes usar el menú gráfico (=Options --> 
 
 Si te interesa el porqué Emacs es tan bueno, aquí tienes dos ejemplos que han convencido a muchos: [[https://orgmode.org/][Org-mode]] y [[https://magit.vc/][Magit]].
 
+** Comandos esenciales (no CUA)
+|----------------------------+-----------+-----------------------------|
+| Comando                    | Teclas    | Descripción                 |
+|----------------------------+-----------+-----------------------------|
+| execute-extended-command   | =M-x=     | Ejecutar comando por nombre |
+| find-file                  | =C-x C-f= | Buscar y abrir un fichero   |
+| save-buffer                | =C-x C-s= | Guardar el búfer actual     |
+| save-some-buffers          | =C-x s=   | Guardar todos los búfers    |
+| write-file                 | =C-x C-w= | Guardar búfer como...       |
+| save-buffers-kill-terminal | =C-x C-c= | Salir de Emacs              |
+| switch-to-buffer           | =C-x b=   | Cambiar de búfer            |
+| undo                       | =C-x u=   | Deshacer el último cambio   |
+| keyboard-quit              | =C-g=     | Cancelar comando actual     |
+| kill-region                | =C-w=     | Borrar y copiar selección   |
+| yank                       | =C-y=     | Pegar último texto copiado  |
+|----------------------------+-----------+-----------------------------|
+
 * Instalar Emacs
 ** Binarios
 Si ya lo has instalado, puedes consultar [[*Por dónde empezar]]. Si no, probablemente puedas encontrar Emacs en los repositorios de la distribución de Linux que uses con el nombre de =emacs= o =emacs-gtk= (versión gráfica). En caso de Windows o MacOS, ver la información en la [[https://www.gnu.org/software/emacs/download.html#nonfree][página web oficial de GNU]]. \\
