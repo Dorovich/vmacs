@@ -48,13 +48,13 @@
 (electric-quote-mode 1)
 
 ;; Completar mejor
-(setq completion-styles '(emacs22 basic initials substring))
+(setq completion-styles '(substring basic emacs22))
 
 ;; Cambiar ventana con alt+flechas
 (windmove-default-keybindings 'meta)
 
 ;; Hacer cosas interactivamente en el minibúfer
-(fido-mode 1)
+;; (fido-mode 1)
 
 ;; Usar Ibuffer en vez de buffer-list
 (defalias 'list-buffers 'ibuffer)
@@ -66,7 +66,8 @@
 
 ;; Ignorar mayúsculas al buscar
 (setq read-file-name-completion-ignore-case t
-      read-buffer-completion-ignore-case t)
+      read-buffer-completion-ignore-case t
+      completion-ignore-case t)
 
 ;; Desactivar pitidos
 (setq ring-bell-function 'ignore)
@@ -105,20 +106,6 @@
 (global-set-key (kbd "C-x C-r") 'recentf-open-files)
 (global-set-key (kbd "<mouse-8>") 'previous-buffer)
 (global-set-key (kbd "<mouse-9>") 'next-buffer)
-
-;; Recargar configuración
-(defun reload-init-file ()
-  "Reload the user's init.el twice."
-  (interactive)
-  (load-file user-init-file)
-  (load-file user-init-file))
-
-;; Escribir con privilegios
-(defun sudo-save ()
-  (interactive)
-  (if (not buffer-file-name)
-      (write-file (concat "/sudo:root@localhost:" (ido-read-file-name "File:")))
-    (write-file (concat "/sudo:root@localhost:" buffer-file-name))))
 
 ;; Esconder el menú y mostrar batería y hora en mi portátil
 (when is-laptop
@@ -210,6 +197,25 @@
 (use-package magit
   :commands magit-status)
 
+;; Complecion vertical
+(use-package vertico
+  :demand t
+  :config
+  (vertico-mode 1)
+  (vertico-multiform-mode 1)
+  (vertico-unobtrusive-mode 1)
+  :bind (:map vertico-map
+	      ("C-SPC" . vertico-toggle-u-r)
+              ("RET" . vertico-directory-enter)
+              ("DEL" . vertico-directory-delete-char)
+              ("M-DEL" . vertico-directory-delete-word)))
+
+;; Información sobre funciones y variables
+(use-package marginalia
+  :after (:or vertico icomplete-vertical)
+  :config
+  (marginalia-mode 1))
+
 ;; Modo mejorado para PDFs
 (use-package pdf-tools
   :magic ("%PDF" . pdf-view-mode)
@@ -247,3 +253,6 @@
 
 ;; Estilo C del kernel
 (load-file (expand-file-name "kernel.el" user-emacs-directory))
+
+;; Definiciones de funciones
+(load-file (expand-file-name "my-lib.el" user-emacs-directory))
