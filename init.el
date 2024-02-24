@@ -212,7 +212,7 @@
 
 ;; Información sobre funciones y variables
 (use-package marginalia
-  :after (:or vertico icomplete-vertical)
+  :after (:any vertico icomplete-vertical fido-vertical)
   :config
   (marginalia-mode 1))
 
