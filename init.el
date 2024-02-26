@@ -206,7 +206,7 @@
   (vertico-multiform-mode 1)
   (vertico-unobtrusive-mode 1)
   :bind (:map vertico-map
-	      ("C-SPC" . vertico-toggle-u-r)
+	      ("C-SPC" . vertico-my-toggle)
               ("RET" . vertico-directory-enter)
               ("DEL" . vertico-directory-delete-char)
               ("M-DEL" . vertico-directory-delete-word)))
@@ -226,6 +226,7 @@
 
 ;; Colores rebuenos
 (use-package modus-themes
+  :commands load-theme
   :config
   (setq modus-themes-mixed-fonts t
         modus-themes-bold-constructs t

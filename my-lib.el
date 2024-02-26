@@ -14,7 +14,7 @@
     (write-file (concat "/sudo:root@localhost:" buffer-file-name))))
 
 ;; Cambiar entre modos de vertico temporalmente
-(defun vertico-toggle-u-r ()
+(defun vertico-my-toggle ()
   "Toggle between unobtrusive and reverse vertico modes."
   (interactive)
   (if vertico-unobtrusive-mode
