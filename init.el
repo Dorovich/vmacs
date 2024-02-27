@@ -104,6 +104,7 @@
 ;; Combinaciones de teclas
 (global-set-key (kbd "C-x c") 'comment-or-uncomment-region)
 (global-set-key (kbd "C-x C-r") 'recentf-open-files)
+(global-set-key (kbd "C-x C-m") 'execute-extended-command)
 (global-set-key (kbd "<mouse-8>") 'previous-buffer)
 (global-set-key (kbd "<mouse-9>") 'next-buffer)
 
@@ -147,6 +148,8 @@
 	org-html-validation-link nil
 	org-fontify-todo-headline t
 	org-fontify-whole-heading-line t
+	org-special-ctrl-a/e t
+	org-fold-catch-invisible-edits 'show-and-error
 	image-use-external-converter t))
 
 ;; Deshacer puro y duro
@@ -185,10 +188,9 @@
 
 ;; Emular un terminal
 (use-package eat
-  :commands (eat eat-eshell-mode eat-eshell-visual-command-mode)
-  :init
-  (add-hook 'eshell-load-hook #'eat-eshell-mode)
-  (add-hook 'eshell-load-hook #'eat-eshell-visual-command-mode)  
+  :commands eat
+  :hook ((eshell-load . eat-eshell-mode)
+	 (eshell-load . eat-eshell-visual-command-mode))
   :config
   (setq eat-kill-buffer-on-exit t
 	eat-enable-mouse t))
@@ -222,6 +224,14 @@
   :config
   (pdf-loader-install)
   (setq pdf-view-display-size 'fit-page))
+
+;; Retoques a Org mode
+(use-package org-modern
+  :hook ((org-mode . org-modern-mode)
+	 (org-agenda-finalize . org-modern-agenda))
+  :config
+  (set-face-attribute 'org-modern-label nil :height 1.0)
+  (setq org-modern-list '((43 . "‣") (45 . "–") (42 . "•"))))
 
 ;; Colores rebuenos
 (use-package modus-themes

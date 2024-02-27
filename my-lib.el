@@ -1,17 +1,15 @@
 ;; Recargar configuración
 (defun reload-init-file ()
-  "Reload the user's init.el twice."
+  "Reload the user's init.el."
   (interactive)
-  (load-file user-init-file)
   (load-file user-init-file))
 
-;; Escribir con privilegios
-(defun sudo-save ()
-  "Save buffer with elevated privileges."
-  (interactive)
-  (if (not buffer-file-name)
-      (write-file (concat "/sudo:root@localhost:" (ido-read-file-name "File:")))
-    (write-file (concat "/sudo:root@localhost:" buffer-file-name))))
+;; Editar ficheros con privilegios
+(defun find-file-as-root (file-name)
+  "Like find file, but opens the file as root."
+  (interactive "FFind file (root): ")
+  (let ((tramp-file-name (concat "/sudo::" (expand-file-name file-name))))
+    (find-file tramp-file-name)))
 
 ;; Cambiar entre modos de vertico temporalmente
 (defun vertico-my-toggle ()
