@@ -107,9 +107,8 @@
 (global-set-key (kbd "<mouse-8>") 'previous-buffer)
 (global-set-key (kbd "<mouse-9>") 'next-buffer)
 
-;; Esconder el menú y mostrar batería y hora en mi portátil
+;; Mostrar batería y hora en mi portátil
 (when is-laptop
-  (menu-bar-mode -1)
   (display-battery-mode 1)
   (display-time-mode 1)
   (setq display-time-format "%H:%M"))

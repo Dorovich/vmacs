@@ -21,8 +21,9 @@
     (convert-standard-filename
       (expand-file-name "var/eln-cache/" user-emacs-directory))))
 
-;; Desactivar la barra de herramientas
-(tool-bar-mode -1)
+;; Desactivar la barra de herramientas y el menú
+(when (fboundp 'tool-bar-mode) (tool-bar-mode -1))
+(when (fboundp 'menu-bar-mode) (menu-bar-mode -1))
 
 ;; No mostrar pantalla de inicio si se está abriendo algo
 (when (cdr command-line-args)
