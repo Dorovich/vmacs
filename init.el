@@ -195,6 +195,16 @@
   (setq eat-kill-buffer-on-exit t
 	eat-enable-mouse t))
 
+;; Cliente de IRC
+(use-package erc
+  :commands (erc erc-tls erc-ssl)
+  :config
+  (setq erc-kill-server-buffer-on-quit t
+	erc-kill-buffer-on-part t
+	erc-kill-queries-on-quit t)
+  (require 'erc-dcc)
+  (add-to-list 'erc-dcc-auto-masks "TNW!.*@.*"))
+
 ;; Cliente de git
 (use-package magit
   :commands magit-status)
