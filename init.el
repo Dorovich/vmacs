@@ -121,7 +121,7 @@
 (unless package-archive-contents
   (package-refresh-contents))
 
-;; Pillar paquetes si no estan
+;; Preparar use-package y seguir compilando el fichero
 (eval-and-compile
   (setq use-package-always-ensure t
 	use-package-expand-minimally t))
