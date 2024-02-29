@@ -34,6 +34,11 @@
 (setq echo-keystrokes 0.02
       show-paren-delay 0)
 
+;; Usar utf-8
+(set-language-environment 'utf-8)
+(set-default-coding-systems 'utf-8)
+(set-keyboard-coding-system 'utf-8-unix)
+
 ;; Sobreescribir la región seleccionada
 (delete-selection-mode 1)
 
@@ -277,7 +282,8 @@
 	 (org-agenda-finalize . org-modern-agenda))
   :config
   (set-face-attribute 'org-modern-label nil :height 1.0)
-  (setq org-modern-list '((43 . "‣") (45 . "–") (42 . "•"))))
+  (setq org-modern-list '((43 . "‣") (45 . "–") (42 . "•"))
+	org-modern-table nil))
 
 ;; Estilo C del kernel
 (load-file (expand-file-name "kernel.el" user-emacs-directory))
