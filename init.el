@@ -122,7 +122,9 @@
   (package-refresh-contents))
 
 ;; Pillar paquetes si no estan
-(setq use-package-always-ensure t)
+(eval-and-compile
+  (setq use-package-always-ensure t
+	use-package-expand-minimally t))
 
 ;; Mantener el directorio de configuración limpio
 (use-package no-littering
@@ -136,9 +138,39 @@
 ;; Cargar archivo personalizado
 (load custom-file 'noerror 'nomessage)
 
+;; Colores rebuenos
+(use-package modus-themes
+  :commands load-theme
+  :config
+  (setq modus-themes-mixed-fonts t
+        modus-themes-bold-constructs t
+        modus-themes-italic-constructs t
+        modus-themes-disable-other-themes t
+        modus-themes-headings '((0 . (1.2))
+                                (1 . (1.4))
+                                (2 . (1.3))
+                                (3 . (1.2))
+                                (4 . (1.1)))))
+
+;; Otros colores chulos
+(use-package standard-themes
+  :config
+  (setq standard-themes-mixed-fonts t
+        standard-themes-bold-constructs t
+        standard-themes-italic-constructs t
+        standard-themes-disable-other-themes t
+        standard-themes-headings '((0 . (1.2))
+                                   (1 . (1.4))
+                                   (2 . (1.3))
+                                   (3 . (1.2))
+                                   (4 . (1.1))))
+  (define-key global-map (kbd "<f5>") #'standard-themes-toggle)
+  (standard-themes-load-dark))
+
 ;; Preparar org-mode
 (use-package org
   :defer t
+  :ensure nil
   :config
   (setq org-pretty-entities t
 	org-hide-leading-stars t
@@ -209,6 +241,10 @@
 (use-package magit
   :commands magit-status)
 
+;; Interfaz para pass
+(use-package pass
+  :commands pass)
+
 ;; Complecion vertical
 (use-package vertico
   :demand t
@@ -242,35 +278,6 @@
   :config
   (set-face-attribute 'org-modern-label nil :height 1.0)
   (setq org-modern-list '((43 . "‣") (45 . "–") (42 . "•"))))
-
-;; Colores rebuenos
-(use-package modus-themes
-  :commands load-theme
-  :config
-  (setq modus-themes-mixed-fonts t
-        modus-themes-bold-constructs t
-        modus-themes-italic-constructs t
-        modus-themes-disable-other-themes t
-        modus-themes-headings '((0 . (1.2))
-                                (1 . (1.4))
-                                (2 . (1.3))
-                                (3 . (1.2))
-                                (4 . (1.1)))))
-
-;; Otros colores chulos
-(use-package standard-themes
-  :config
-  (setq standard-themes-mixed-fonts t
-        standard-themes-bold-constructs t
-        standard-themes-italic-constructs t
-        standard-themes-disable-other-themes t
-        standard-themes-headings '((0 . (1.2))
-                                   (1 . (1.4))
-                                   (2 . (1.3))
-                                   (3 . (1.2))
-                                   (4 . (1.1))))
-  (define-key global-map (kbd "<f5>") #'standard-themes-toggle)
-  (standard-themes-load-dark))
 
 ;; Estilo C del kernel
 (load-file (expand-file-name "kernel.el" user-emacs-directory))
