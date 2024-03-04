@@ -1,6 +1,6 @@
 #+options: date:nil \n:t author:nil toc:nil
 
-* Otra configuración más de [[https://www.gnu.org/software/emacs/][GNU Emacs]].
+* Otra configuración más de [[https://www.gnu.org/software/emacs/][GNU Emacs]]
 #+begin_quote
 ¿Cansado/a de ir saltando entre terminales, programas varios y editores de texto? \\
 ¿Quizá te interesa escribir un documento? ¿un texto profesional?
@@ -20,9 +20,9 @@ Si quieres cambiar el tema de Emacs puedes usar el menú gráfico (=Options --> 
 Si te interesa el porqué Emacs es tan bueno, aquí tienes dos ejemplos que han convencido a muchos: [[https://orgmode.org/][Org-mode]] y [[https://magit.vc/][Magit]].
 
 ** Comandos esenciales (no CUA)
-|----------------------------+-----------+-----------------------------|
-| Comando                    | Teclas    | Descripción                 |
-|----------------------------+-----------+-----------------------------|
+|----------------------------+---------+-----------------------------|
+| Comando                    | Teclas  | Descripción                 |
+|----------------------------+---------+-----------------------------|
 | execute-extended-command   | =M-x=     | Ejecutar comando por nombre |
 | find-file                  | =C-x C-f= | Buscar y abrir un fichero   |
 | save-buffer                | =C-x C-s= | Guardar el búfer actual     |
@@ -34,7 +34,7 @@ Si te interesa el porqué Emacs es tan bueno, aquí tienes dos ejemplos que han 
 | keyboard-quit              | =C-g=     | Cancelar comando actual     |
 | kill-region                | =C-w=     | Borrar y copiar selección   |
 | yank                       | =C-y=     | Pegar último texto copiado  |
-|----------------------------+-----------+-----------------------------|
+|----------------------------+---------+-----------------------------|
 
 * Instalar Emacs
 ** Binarios

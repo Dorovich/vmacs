@@ -1,3 +1,5 @@
+;; -*- lexical-binding: t -*-
+
 ;; Detectar si estoy en mi portátil
 (defconst is-laptop (string= (system-name) "colmena"))
 
@@ -91,15 +93,20 @@
 (setq ibuffer-expert t
       ibuffer-show-empty-filter-groups nil
       ibuffer-display-summary nil
-      ibuffer-saved-filter-groups '(("default"
+      ibuffer-saved-filter-groups `(("default"
                                      ("Dired" (mode . dired-mode))
                                      ("ERC" (mode . erc-mode))
-                                     ("Emacs" (or (name . "^\\*scratch\\*$")
-                                                  (name . "^\\*Messages\\*$"))))))
+                                     ("Emacs" (or (name . ,(rx bol "*scratch*" eol))
+						  (name . ,(rx bol "*Messages*" eol))
+						  (name . ,(rx bol "*GNU Emacs*" eol))
+						  (name . ,(rx bol "*Async-native-compile-log*" eol)))))))
 
 ;; Usar grupo personalizado en Ibuffer
 (add-hook 'ibuffer-mode-hook
           (lambda () (ibuffer-switch-to-saved-filter-groups "default")))
+
+;; Usar utf-8
+(set-default-coding-systems 'utf-8)
 
 ;; Combinaciones de teclas
 (global-set-key (kbd "C-x c") 'comment-or-uncomment-region)
@@ -124,6 +131,7 @@
 ;; Preparar use-package y seguir compilando el fichero
 (eval-and-compile
   (setq use-package-always-ensure t
+	use-package-compute-statistics t
 	use-package-expand-minimally t))
 
 ;; Mantener el directorio de configuración limpio
@@ -146,11 +154,11 @@
         modus-themes-bold-constructs t
         modus-themes-italic-constructs t
         modus-themes-disable-other-themes t
-        modus-themes-headings '((0 . (1.2))
-                                (1 . (1.4))
-                                (2 . (1.3))
-                                (3 . (1.2))
-                                (4 . (1.1)))))
+        modus-themes-headings '((0 . (1.4))
+                                (1 . (2.0))
+                                (2 . (1.8))
+                                (3 . (1.4))
+                                (t . (1.2)))))
 
 ;; Otros colores chulos
 (use-package standard-themes
@@ -159,30 +167,13 @@
         standard-themes-bold-constructs t
         standard-themes-italic-constructs t
         standard-themes-disable-other-themes t
-        standard-themes-headings '((0 . (1.2))
-                                   (1 . (1.4))
-                                   (2 . (1.3))
-                                   (3 . (1.2))
-                                   (4 . (1.1))))
+        standard-themes-headings '((0 . (1.4))
+                                   (1 . (2.0))
+                                   (2 . (1.8))
+                                   (3 . (1.4))
+                                   (t . (1.2))))
   (define-key global-map (kbd "<f5>") #'standard-themes-toggle)
   (standard-themes-load-dark))
-
-;; Preparar org-mode
-(use-package org
-  :defer t
-  :ensure nil
-  :config
-  (setq org-pretty-entities t
-	org-hide-leading-stars t
-	org-startup-indented t
-	org-startup-align-all-tables t
-	org-return-follows-link t
-	org-html-validation-link nil
-	org-fontify-todo-headline t
-	org-fontify-whole-heading-line t
-	org-special-ctrl-a/e t
-	org-fold-catch-invisible-edits 'show-and-error
-	image-use-external-converter t))
 
 ;; Deshacer puro y duro
 (use-package undo-fu
@@ -270,6 +261,31 @@
   :config
   (pdf-loader-install)
   (setq pdf-view-display-size 'fit-page))
+
+;; Preparar org-mode
+(use-package org
+  :defer t
+  :ensure nil
+  :config
+  (when window-system
+    (dolist (face '(org-block org-code org-verbatim org-table org-drawer
+			      org-table org-formula org-special-keyword org-block
+			      org-property-value org-document-info-keyword))
+      (set-face-attribute face nil :inherit 'fixed-pitch)))
+  (set-face-attribute 'org-document-info-keyword nil :inherit 'org-meta-line)
+  (setq org-ellipsis "⬎"
+	org-fold-catch-invisible-edits 'show-and-error
+	org-fontify-todo-headline t
+	org-fontify-whole-heading-line t
+	org-hide-emphasis-markers t
+	org-hide-leading-stars t
+	org-html-validation-link nil
+	org-pretty-entities t
+	org-return-follows-link t
+	org-special-ctrl-a/e t
+	org-startup-align-all-tables t
+	org-startup-indented t
+	image-use-external-converter t))
 
 ;; Retoques a Org mode
 (use-package org-modern

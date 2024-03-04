@@ -1,3 +1,5 @@
+;; -*- lexical-binding: t -*-
+
 ;; Recargar configuración
 (defun reload-init-file ()
   "Reload the user's init.el."
