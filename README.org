@@ -92,3 +92,4 @@ Por último, compilamos e instalamos (para más info sobre las CFLAGS usadas ver
 - /([[https://karthinks.com/software/more-batteries-included-with-emacs/][More]]) [[https://karthinks.com/software/batteries-included-with-emacs/][Batteries included with Emacs]]/, Karthinks
 - /[[https://batsov.com/articles/2011/11/30/the-ultimate-collection-of-emacs-resources/][The Ultimate Collection of Emacs Resources]]/, Bozhidar Batsov
 - /[[https://gist.github.com/abidanBrito/2b5e447f191bb6bb70c9b6fe6f9e7956#file-build-emacs-sh][Build GNU Emacs from source.]]/, Abidán Brito
+- /[[https://howardabrams.com/hamacs/][My Emacs Configuration]]/, Howard Abrams
