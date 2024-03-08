@@ -146,8 +146,12 @@
 ;; Cargar archivo personalizado
 (load custom-file 'noerror 'nomessage)
 
+;; Definiciones de funciones
+(load-file (expand-file-name "my-lib.el" user-emacs-directory))
+
 ;; Colores rebuenos
 (use-package modus-themes
+  :defer t
   :commands load-theme
   :config
   (setq modus-themes-mixed-fonts t
@@ -162,6 +166,8 @@
 
 ;; Otros colores chulos
 (use-package standard-themes
+  :defer t
+  :commands load-theme
   :config
   (setq standard-themes-mixed-fonts t
         standard-themes-bold-constructs t
@@ -171,9 +177,9 @@
                                    (1 . (2.0))
                                    (2 . (1.8))
                                    (3 . (1.4))
-                                   (t . (1.2))))
-  (define-key global-map (kbd "<f5>") #'standard-themes-toggle)
-  (standard-themes-load-dark))
+                                   (t . (1.2)))))
+
+(use-themes standard t [f5])
 
 ;; Deshacer puro y duro
 (use-package undo-fu
@@ -267,12 +273,12 @@
   :defer t
   :ensure nil
   :config
-  (when window-system
-    (dolist (face '(org-block org-code org-verbatim org-table org-drawer
-			      org-table org-formula org-special-keyword org-block
-			      org-property-value org-document-info-keyword))
-      (set-face-attribute face nil :inherit 'fixed-pitch)))
-  (set-face-attribute 'org-document-info-keyword nil :inherit 'org-meta-line)
+  ;; (when window-system
+  ;;   (dolist (face '(org-block org-code org-verbatim org-table org-drawer
+  ;; 			      org-table org-formula org-special-keyword org-block
+  ;; 			      org-property-value org-document-info-keyword))
+  ;;     (set-face-attribute face nil :inherit 'fixed-pitch)))
+  ;; (set-face-attribute 'org-document-info-keyword nil :inherit 'org-meta-line)
   (setq org-ellipsis "⬎"
 	org-fold-catch-invisible-edits 'show-and-error
 	org-fontify-todo-headline t
@@ -298,6 +304,3 @@
 
 ;; Estilo C del kernel
 (load-file (expand-file-name "kernel.el" user-emacs-directory))
-
-;; Definiciones de funciones
-(load-file (expand-file-name "my-lib.el" user-emacs-directory))

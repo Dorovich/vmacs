@@ -24,3 +24,19 @@
     (progn
       (vertico-multiform--temporary-mode 'vertico-reverse-mode -1)
       (vertico-multiform--temporary-mode 'vertico-unobtrusive-mode 1))))
+
+;; Cambiar entre temas de colores
+(defmacro use-themes (name &optional dark key)
+  (let ((__mds (eq name 'modus))
+	(__std (eq name 'standard)))
+    `(progn
+       (require ,(cond (__mds ''modus-themes)
+		       (__std ''standard-themes)))
+       (if ,dark
+	   ,(cond (__mds '(modus-themes-load-theme modus-operandi))
+		  (__std '(standard-themes-load-dark)))
+	 ,(cond (__mds '(modus-themes-load-theme modus-vivendi))
+		(__std '(standard-themes-load-light))))
+       (when ,key
+	 (define-key global-map ,key ,(cond (__mds ''modus-themes-toggle)
+					    (__std ''standard-themes-toggle)))))))
