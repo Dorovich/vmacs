@@ -58,12 +58,6 @@
 ;; Hacer cosas interactivamente en el minibúfer
 ;; (fido-mode 1)
 
-;; Esconder detalles en dired (se pueden mostrar con "(")
-(add-hook 'dired-mode-hook 'dired-hide-details-mode)
-
-;; Eliminar búfer anterior al moverse entre carpetas
-(setq dired-kill-when-opening-new-dired-buffer t)
-
 ;; Usar Ibuffer en vez de buffer-list
 (defalias 'list-buffers 'ibuffer)
 
@@ -282,6 +276,14 @@
   :config
   (pdf-loader-install)
   (setq pdf-view-display-size 'fit-page))
+
+;; Preparar dired
+(use-package dired
+  :defer t
+  :hook (dired-mode . dired-hide-details-mode)
+  :config
+  (setq dired-kill-when-opening-new-dired-buffer t)
+  (define-key dired-mode-map (kbd "DEL") 'dired-up-directory))
 
 ;; Preparar org-mode
 (use-package org
