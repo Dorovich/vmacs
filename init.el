@@ -58,6 +58,12 @@
 ;; Hacer cosas interactivamente en el minibúfer
 ;; (fido-mode 1)
 
+;; Esconder detalles en dired (se pueden mostrar con "(")
+(add-hook 'dired-mode-hook 'dired-hide-details-mode)
+
+;; Eliminar búfer anterior al moverse entre carpetas
+(setq dired-kill-when-opening-new-dired-buffer t)
+
 ;; Usar Ibuffer en vez de buffer-list
 (defalias 'list-buffers 'ibuffer)
 
@@ -70,6 +76,16 @@
 (setq read-file-name-completion-ignore-case t
       read-buffer-completion-ignore-case t
       completion-ignore-case t)
+
+;; Desactivar avisos de algunos comandos
+(progn
+  (put 'narrow-to-region 'disabled nil)
+  (put 'narrow-to-page 'disabled nil)
+  (put 'upcase-region 'disabled nil)
+  (put 'downcase-region 'disabled nil)
+  (put 'erase-buffer 'disabled nil)
+  (put 'scroll-left 'disabled nil)
+  (put 'dired-find-alternate-file 'disabled nil))
 
 ;; Desactivar pitidos
 (setq ring-bell-function 'ignore)
@@ -112,6 +128,7 @@
 (global-set-key (kbd "C-x c") 'comment-or-uncomment-region)
 (global-set-key (kbd "C-x C-r") 'recentf-open-files)
 (global-set-key (kbd "C-x C-m") 'execute-extended-command)
+(global-set-key (kbd "C-=") 'indent-region)
 (global-set-key (kbd "<mouse-8>") 'previous-buffer)
 (global-set-key (kbd "<mouse-9>") 'next-buffer)
 
@@ -179,7 +196,7 @@
                                    (3 . (1.4))
                                    (t . (1.2)))))
 
-(use-themes standard t [f5])
+(use-themes standard nil [f5])
 
 ;; Deshacer puro y duro
 (use-package undo-fu
@@ -191,8 +208,6 @@
 ;; Ventanita de autocompletado
 (use-package corfu
   :demand t
-  :bind (:map corfu-map
-              ("SPC" . corfu-insert-separator))
   :config
   (global-corfu-mode 1)
   (setq tab-always-indent 'complete
@@ -273,12 +288,6 @@
   :defer t
   :ensure nil
   :config
-  ;; (when window-system
-  ;;   (dolist (face '(org-block org-code org-verbatim org-table org-drawer
-  ;; 			      org-table org-formula org-special-keyword org-block
-  ;; 			      org-property-value org-document-info-keyword))
-  ;;     (set-face-attribute face nil :inherit 'fixed-pitch)))
-  ;; (set-face-attribute 'org-document-info-keyword nil :inherit 'org-meta-line)
   (setq org-ellipsis "⬎"
 	org-fold-catch-invisible-edits 'show-and-error
 	org-fontify-todo-headline t
@@ -304,3 +313,8 @@
 
 ;; Estilo C del kernel
 (load-file (expand-file-name "kernel.el" user-emacs-directory))
+
+;; tests
+;; (setq inhibit-splash-screen t)
+;; (list-bookmarks)
+;; (switch-to-buffer "*Bookmark List*")
