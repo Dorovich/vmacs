@@ -1,7 +1,7 @@
 ;; -*- lexical-binding: t -*-
 
-;; Detectar si estoy en mi portátil
-(defconst is-laptop (string= (system-name) "colmena"))
+;; Definiciones de funciones
+(load-file (expand-file-name "my-lib.el" user-emacs-directory))
 
 ;; Recordar archivos más recientes
 (recentf-mode 1)
@@ -90,7 +90,7 @@
 ;; Fuentes de prosa
 (set-face-attribute 'variable-pitch nil :family "Noto Serif")
 (add-hook 'text-mode-hook 'turn-on-visual-line-mode)
-(add-hook 'text-mode-hook (lambda () (variable-pitch-mode 1)))
+(add-hook 'text-mode-hook 'variable-pitch-mode)
 
 ;; Abrir ediff en el mismo frame
 (setq ediff-window-setup-function 'ediff-setup-windows-plain)
@@ -112,8 +112,7 @@
 						  (name . ,(rx bol "*Async-native-compile-log*" eol)))))))
 
 ;; Usar grupo personalizado en Ibuffer
-(add-hook 'ibuffer-mode-hook
-          (lambda () (ibuffer-switch-to-saved-filter-groups "default")))
+(add-hook 'ibuffer-mode-hook 'switch-to-my-ibuffer-groups)
 
 ;; Usar utf-8
 (set-default-coding-systems 'utf-8)
@@ -156,9 +155,6 @@
 
 ;; Cargar archivo personalizado
 (load custom-file 'noerror 'nomessage)
-
-;; Definiciones de funciones
-(load-file (expand-file-name "my-lib.el" user-emacs-directory))
 
 ;; Colores rebuenos
 (use-package modus-themes
@@ -296,6 +292,8 @@
 	org-fontify-whole-heading-line t
 	org-hide-emphasis-markers t
 	org-hide-leading-stars t
+	org-html-head-include-default-style nil
+	org-html-htmlize-output-type 'css
 	org-html-validation-link nil
 	org-pretty-entities t
 	org-return-follows-link t
@@ -312,6 +310,13 @@
   (set-face-attribute 'org-modern-label nil :height 1.0)
   (setq org-modern-list '((43 . "‣") (45 . "–") (42 . "•"))
 	org-modern-table nil))
+
+;; Margenes de archivo
+(when (not is-laptop)
+  (use-package olivetti
+    :hook (org-mode . olivetti-mode)
+    :init
+    (setq olivetti-body-width 130)))
 
 ;; Estilo C del kernel
 (load-file (expand-file-name "kernel.el" user-emacs-directory))

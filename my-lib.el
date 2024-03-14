@@ -1,5 +1,20 @@
 ;; -*- lexical-binding: t -*-
 
+;; ¿estoy en los ordenadores de la uni?
+(defconst is-uni (string-match
+		   (rx letter num (zero-or-one letter) (= 3 num) "pc" (= 2 num))
+		   (system-name)))
+
+;; ¿estoy en el portatil?
+(defconst is-laptop (string-match
+		      (rx "colmena")
+		      (system-name)))
+
+;; ¿estoy en ordenador principal?
+(defconst is-desktop (string-match
+		       (rx "vidonet")
+		       (system-name)))
+
 ;; Recargar configuración
 (defun reload-init-file ()
   "Reload the user's init.el."
@@ -12,6 +27,10 @@
   (interactive "FFind file (root): ")
   (let ((tramp-file-name (concat "/sudo::" (expand-file-name file-name))))
     (find-file tramp-file-name)))
+
+;; Cambiar a mis grupos de ibuffer
+(defun switch-to-my-ibuffer-groups ()
+  (ibuffer-switch-to-saved-filter-groups "default"))
 
 ;; Cambiar entre modos de vertico temporalmente
 (defun vertico-my-toggle ()
