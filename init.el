@@ -106,6 +106,8 @@
       ibuffer-saved-filter-groups `(("default"
                                      ("Dired" (mode . dired-mode))
                                      ("ERC" (mode . erc-mode))
+                                     ("Magit" (or (name . ,(rx bol "magit:"))
+						  (name . ,(rx bol "magit-"))))
                                      ("Emacs" (or (name . ,(rx bol "*scratch*" eol))
 						  (name . ,(rx bol "*Messages*" eol))
 						  (name . ,(rx bol "*GNU Emacs*" eol))
