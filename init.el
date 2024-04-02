@@ -193,7 +193,9 @@
 (use-package undo-fu
   :init
   (global-unset-key (kbd "C-z"))
-  :bind (("C-z" . 'undo-fu-only-undo)
+  :bind (([remap undo] . 'undo-fu-only-undo)
+	 ([remap undo-redo] . 'undo-fu-only-redo)
+	 ("C-z" . 'undo-fu-only-undo)
 	 ("C-S-z" . 'undo-fu-only-redo)))
 
 ;; Ventanita de autocompletado
@@ -204,23 +206,14 @@
   (setq tab-always-indent 'complete
         completion-cycle-threshold 3))
 
+;; Cliente de git
+(use-package magit
+  :commands magit-status)
+
 ;; Ver combinaciones de teclas
 (use-package which-key
   :config
   (which-key-mode 1))
-
-;; Marcar saltos
-(use-package pulsar
-  :config
-  (pulsar-global-mode 1)
-  (global-set-key [f8] 'pulsar-pulse-line))
-
-;; Mostrar aciertos
-(use-package anzu
-  :config
-  (global-anzu-mode 1)
-  (global-set-key [remap query-replace] 'anzu-query-replace)
-  (global-set-key [remap query-replace-regexp] 'anzu-query-replace-regexp))
 
 ;; Emular un terminal
 (use-package eat
@@ -230,24 +223,6 @@
   :config
   (setq eat-kill-buffer-on-exit t
 	eat-enable-mouse t))
-
-;; Cliente de IRC
-(use-package erc
-  :commands (erc erc-tls erc-ssl)
-  :config
-  (setq erc-kill-server-buffer-on-quit t
-	erc-kill-buffer-on-part t
-	erc-kill-queries-on-quit t)
-  (require 'erc-dcc)
-  (add-to-list 'erc-dcc-auto-masks "TNW!.*@.*"))
-
-;; Cliente de git
-(use-package magit
-  :commands magit-status)
-
-;; Interfaz para pass
-(use-package pass
-  :commands pass)
 
 ;; Complecion vertical
 (use-package vertico
@@ -267,21 +242,6 @@
   :after (:any vertico icomplete-vertical fido-vertical)
   :config
   (marginalia-mode 1))
-
-;; Modo mejorado para PDFs
-(use-package pdf-tools
-  :magic ("%PDF" . pdf-view-mode)
-  :config
-  (pdf-loader-install)
-  (setq pdf-view-display-size 'fit-page))
-
-;; Preparar dired
-(use-package dired
-  :defer t
-  :hook (dired-mode . dired-hide-details-mode)
-  :config
-  (setq dired-kill-when-opening-new-dired-buffer t)
-  (define-key dired-mode-map (kbd "DEL") 'dired-up-directory))
 
 ;; Preparar org-mode
 (use-package org
@@ -314,6 +274,49 @@
   (setq org-modern-list '((43 . "‣") (45 . "–") (42 . "•"))
 	org-modern-table nil))
 
+;; Mostrar aciertos
+(use-package anzu
+  :config
+  (global-anzu-mode 1)
+  (global-set-key [remap query-replace] 'anzu-query-replace)
+  (global-set-key [remap query-replace-regexp] 'anzu-query-replace-regexp))
+
+;; Preparar dired
+(use-package dired
+  :ensure nil
+  :defer t
+  :hook (dired-mode . dired-hide-details-mode)
+  :config
+  (setq dired-kill-when-opening-new-dired-buffer t)
+  (define-key dired-mode-map (kbd "DEL") 'dired-up-directory))
+
+;; Marcar saltos
+(use-package pulsar
+  :config
+  (pulsar-global-mode 1)
+  (global-set-key [f8] 'pulsar-pulse-line))
+
+;; Modo mejorado para PDFs
+(use-package pdf-tools
+  :magic ("%PDF" . pdf-view-mode)
+  :config
+  (pdf-loader-install)
+  (setq pdf-view-display-size 'fit-page))
+
+;; Cliente de IRC
+(use-package erc
+  :commands (erc erc-tls erc-ssl)
+  :config
+  (setq erc-kill-server-buffer-on-quit t
+	erc-kill-buffer-on-part t
+	erc-kill-queries-on-quit t)
+  (require 'erc-dcc)
+  (add-to-list 'erc-dcc-auto-masks "TNW!.*@.*"))
+
+;; Interfaz para pass
+(use-package pass
+  :commands pass)
+
 ;; Margenes de archivo
 (when (not is-laptop)
   (use-package olivetti
@@ -323,8 +326,3 @@
 
 ;; Estilo C del kernel
 (load-file (expand-file-name "kernel.el" user-emacs-directory))
-
-;; tests
-;; (setq inhibit-splash-screen t)
-;; (list-bookmarks)
-;; (switch-to-buffer "*Bookmark List*")
