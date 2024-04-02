@@ -179,7 +179,13 @@
         standard-themes-bold-constructs t
         standard-themes-italic-constructs t
         standard-themes-disable-other-themes t
+	standard-dark-palette-overrides '((bg-main "#151515"))
 	standard-themes-headings '((t . (1.4)))))
+
+;; Colores para menor contraste
+(use-package color-theme-sanityinc-tomorrow
+  :defer t
+  :commands load-theme)
 
 (use-themes standard nil [f5])
 
@@ -206,7 +212,8 @@
 ;; Marcar saltos
 (use-package pulsar
   :config
-  (pulsar-global-mode 1))
+  (pulsar-global-mode 1)
+  (global-set-key [f8] 'pulsar-pulse-line))
 
 ;; Mostrar aciertos
 (use-package anzu
@@ -280,6 +287,7 @@
 (use-package org
   :defer t
   :ensure nil
+  ;; :custom-face (org-indent ((t (:inherit fixed-pitch))))
   :config
   (setq org-ellipsis "⬎"
 	org-fold-catch-invisible-edits 'show-and-error

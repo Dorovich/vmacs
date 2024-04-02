@@ -47,16 +47,58 @@
 ;; Cambiar entre temas de colores
 (defmacro use-themes (name &optional light toggle-key)
   (let ((__mds (eq name 'modus))
-	(__std (eq name 'standard)))
+	(__std (eq name 'standard))
+	(__tmr (eq name 'tomorrow)))
     `(progn
        (require ,(cond (__mds ''modus-themes)
-		       (__std ''standard-themes)))
+		       (__std ''standard-themes)
+		       (__tmr ''color-theme-sanityinc-tomorrow)))
        (if ,light
 	   ,(cond (__mds '(modus-themes-load-theme 'modus-operandi))
-		  (__std '(standard-themes-load-light)))
+		  (__std '(standard-themes-load-light))
+		  (__tmr '(color-theme-sanityinc-tomorrow-day)))
 	 ,(cond (__mds '(modus-themes-load-theme 'modus-vivendi))
-		(__std '(standard-themes-load-dark))))
+		(__std '(standard-themes-load-dark))
+		(__tmr '(color-theme-sanityinc-tomorrow-night))))
        (when ,toggle-key
 	 (define-key global-map ,toggle-key
 		     ,(cond (__mds ''modus-themes-toggle)
-			    (__std ''standard-themes-toggle)))))))
+			    (__std ''standard-themes-toggle)
+			    (__tmr ''color-theme-sanityinc-tomorrow-toggle)))))))
+
+(defun color-theme-sanityinc-tomorrow-toggle ()
+  (interactive)
+  "Toggle between night and day tomorrow themes."
+  (if (member 'sanityinc-tomorrow-night custom-enabled-themes)
+      (color-theme-sanityinc-tomorrow-day)
+    (color-theme-sanityinc-tomorrow-night)))
+
+;; Arreglar formato org-mode
+(defun org-fix-format ()
+  (interactive)
+  (when window-system
+    (dolist (face org-level-faces)
+      (set-face-attribute face nil :height 1.4 :weight 'bold))
+    (dolist (face '(org-block org-code org-verbatim org-table org-drawer
+			      org-table org-formula org-special-keyword org-block
+			      org-property-value org-document-info-keyword))
+      (set-face-attribute face nil :inherit 'fixed-pitch)))
+  (set-face-attribute 'org-table nil :height 1.0)
+  (set-face-attribute 'org-formula nil :height 1.0))
+  ;; (set-face-attribute 'org-verbatim nil :foreground "#aaaacc"))
+
+;; Otras cosas que he hecho por diversión
+(defmacro ++ (&rest args)
+  "Returns the sum of ‘args’ plus 1."
+  `(+ 1 ,@args))
+
+(defun roll-i (n f v)
+  (if (= n 1)
+      (++ v (random f))
+    (roll-i (1- n) f (++ v (random f)))))
+
+(defun roll (n f)
+  "Roll the dice!"
+  (interactive "NNumber of dice: \nnFaces of dice: ")
+  (message (number-to-string (roll-i n f 0))))
+
