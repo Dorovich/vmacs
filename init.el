@@ -110,6 +110,7 @@
 						  (name . ,(rx bol "magit-"))))
                                      ("Emacs" (or (name . ,(rx bol "*scratch*" eol))
 						  (name . ,(rx bol "*Messages*" eol))
+						  (name . ,(rx bol "*Bookmark List*" eol))
 						  (name . ,(rx bol "*GNU Emacs*" eol))
 						  (name . ,(rx bol "*Async-native-compile-log*" eol)))))))
 
@@ -167,11 +168,7 @@
         modus-themes-bold-constructs t
         modus-themes-italic-constructs t
         modus-themes-disable-other-themes t
-        modus-themes-headings '((0 . (1.4))
-                                (1 . (2.0))
-                                (2 . (1.8))
-                                (3 . (1.4))
-                                (t . (1.2)))))
+        modus-themes-headings '((t . (1.4)))))
 
 ;; Otros colores chulos
 (use-package standard-themes
@@ -182,11 +179,7 @@
         standard-themes-bold-constructs t
         standard-themes-italic-constructs t
         standard-themes-disable-other-themes t
-        standard-themes-headings '((0 . (1.4))
-                                   (1 . (2.0))
-                                   (2 . (1.8))
-                                   (3 . (1.4))
-                                   (t . (1.2)))))
+	standard-themes-headings '((t . (1.4)))))
 
 (use-themes standard nil [f5])
 
