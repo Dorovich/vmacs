@@ -313,10 +313,6 @@
   (require 'erc-dcc)
   (add-to-list 'erc-dcc-auto-masks "TNW!.*@.*"))
 
-;; Interfaz para pass
-(use-package pass
-  :commands pass)
-
 ;; Margenes de archivo
 (when (not is-laptop)
   (use-package olivetti
