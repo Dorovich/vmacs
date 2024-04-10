@@ -304,7 +304,7 @@
 ;; Modo mejorado para PDFs
 (use-package pdf-tools
   :magic ("%PDF" . pdf-view-mode)
-  :config
+  :init
   (pdf-loader-install)
   (setq pdf-view-display-size 'fit-page))
 
