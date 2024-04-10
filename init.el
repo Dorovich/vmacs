@@ -55,6 +55,9 @@
 ;; Cambiar ventana con alt+flechas
 (windmove-default-keybindings 'meta)
 
+;; Buscador para eww
+(setq eww-search-prefix "https://frogfind.com/?q=")
+
 ;; Hacer cosas interactivamente en el minibúfer
 ;; (fido-mode 1)
 
@@ -132,7 +135,9 @@
 (when is-laptop
   (display-battery-mode 1)
   (display-time-mode 1)
-  (setq display-time-format "%H:%M"))
+  (setq display-time-day-and-date t
+	display-time-default-load-average nil
+	display-time-format "%R [%a %-e]"))
 
 ;; Añadir MELPA e inicializar
 (require 'package)
@@ -314,11 +319,13 @@
   (add-to-list 'erc-dcc-auto-masks "TNW!.*@.*"))
 
 ;; Margenes de archivo
-(when (not is-laptop)
-  (use-package olivetti
-    :hook (org-mode . olivetti-mode)
-    :init
-    (setq olivetti-body-width 130)))
+(use-package writeroom-mode
+  :hook (org-mode . writeroom-mode)
+  :init
+  (setq writeroom-maximize-window nil
+	writeroom-fullscreen-effect 'maximized
+	writeroom-mode-line t
+	writeroom-bottom-divider-width 0))
 
 ;; Estilo C del kernel
 (load-file (expand-file-name "kernel.el" user-emacs-directory))
