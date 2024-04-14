@@ -61,10 +61,10 @@
 		(__std '(standard-themes-load-dark))
 		(__tmr '(color-theme-sanityinc-tomorrow-night))))
        (when ,toggle-key
-	 (define-key global-map ,toggle-key
-		     ,(cond (__mds ''modus-themes-toggle)
-			    (__std ''standard-themes-toggle)
-			    (__tmr ''color-theme-sanityinc-tomorrow-toggle)))))))
+	 (keymap-global-set ,toggle-key
+			    ,(cond (__mds ''modus-themes-toggle)
+				   (__std ''standard-themes-toggle)
+				   (__tmr ''color-theme-sanityinc-tomorrow-toggle)))))))
 
 (defun color-theme-sanityinc-tomorrow-toggle ()
   (interactive)

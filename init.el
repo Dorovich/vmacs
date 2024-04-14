@@ -127,14 +127,14 @@
 (set-default-coding-systems 'utf-8)
 
 ;; Combinaciones de teclas
-(global-set-key (kbd "C-x c") 'comment-or-uncomment-region)
-(global-set-key (kbd "C-x C-r") 'recentf-open-files)
-(global-set-key (kbd "C-x C-m") 'execute-extended-command)
-(global-set-key (kbd "C-=") 'indent-region)
-(global-set-key (kbd "M-o") 'other-window)
-(global-set-key (kbd "<mouse-8>") 'previous-buffer)
-(global-set-key (kbd "<mouse-9>") 'next-buffer)
-(global-set-key [f6] 'revert-buffer)
+(keymap-global-set "C-x c" 'comment-or-uncomment-region)
+(keymap-global-set "C-x C-r" 'recentf-open-files)
+(keymap-global-set "C-x C-m" 'execute-extended-command)
+(keymap-global-set "C-=" 'indent-region)
+(keymap-global-set "M-o" 'other-window)
+(keymap-global-set "<mouse-8>" 'previous-buffer)
+(keymap-global-set "<mouse-9>" 'next-buffer)
+(keymap-global-set "<f6>" 'revert-buffer)
 
 ;; Mostrar batería y hora en mi portátil
 (when is-laptop
@@ -197,7 +197,7 @@
   :defer t
   :commands load-theme)
 
-(use-themes standard nil [f5])
+(use-themes standard nil "<f5>")
 
 ;; Deshacer puro y duro
 (use-package undo-fu
@@ -288,8 +288,8 @@
 (use-package anzu
   :config
   (global-anzu-mode 1)
-  (global-set-key [remap query-replace] 'anzu-query-replace)
-  (global-set-key [remap query-replace-regexp] 'anzu-query-replace-regexp))
+  (keymap-global-set "<remap> <query-replace>" 'anzu-query-replace)
+  (keymap-global-set "<remap> <query-replace-regexp>" 'anzu-query-replace-regexp))
 
 ;; Preparar dired
 (use-package dired
@@ -304,7 +304,7 @@
 (use-package pulsar
   :config
   (pulsar-global-mode 1)
-  (global-set-key [f8] 'pulsar-pulse-line))
+  (keymap-global-set "<f8>" 'pulsar-pulse-line))
 
 ;; Abreviaciones dinámicas
 (use-package dabbrev
