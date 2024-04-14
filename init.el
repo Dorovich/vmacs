@@ -98,6 +98,9 @@
 ;; Abrir ediff en el mismo frame
 (setq ediff-window-setup-function 'ediff-setup-windows-plain)
 
+;; No mostrar en M-x comandos que dependan del modo si sirve de nada
+(setq read-extended-command-predicate #'command-completion-default-include-p)
+
 ;; Símbolos bonitos
 (defconst lisp--prettify-symbols-alist '(("lambda" . ?λ)))
 (global-prettify-symbols-mode 1)
@@ -128,8 +131,10 @@
 (global-set-key (kbd "C-x C-r") 'recentf-open-files)
 (global-set-key (kbd "C-x C-m") 'execute-extended-command)
 (global-set-key (kbd "C-=") 'indent-region)
+(global-set-key (kbd "M-o") 'other-window)
 (global-set-key (kbd "<mouse-8>") 'previous-buffer)
 (global-set-key (kbd "<mouse-9>") 'next-buffer)
+(global-set-key [f6] 'revert-buffer)
 
 ;; Mostrar batería y hora en mi portátil
 (when is-laptop
@@ -300,6 +305,16 @@
   :config
   (pulsar-global-mode 1)
   (global-set-key [f8] 'pulsar-pulse-line))
+
+;; Abreviaciones dinámicas
+(use-package dabbrev
+  :commands (dabbrev-completion dabbrev-expand)
+  :bind (("C-<tab>" . dabbrev-expand))
+  :config
+  (add-to-list 'dabbrev-ignored-buffer-regexps "\\` ")
+  (add-to-list 'dabbrev-ignored-buffer-modes 'doc-view-mode)
+  (add-to-list 'dabbrev-ignored-buffer-modes 'pdf-view-mode)
+  (add-to-list 'dabbrev-ignored-buffer-modes 'tags-table-mode))
 
 ;; Modo mejorado para PDFs
 (use-package pdf-tools
