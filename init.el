@@ -120,6 +120,10 @@
 						  (name . ,(rx bol "*GNU Emacs*" eol))
 						  (name . ,(rx bol "*Async-native-compile-log*" eol)))))))
 
+;; Cambiar marcador de eshell
+(setq eshell-prompt-function 'my-eshell-prompt-fn
+      eshell-highlight-prompt t)
+
 ;; Usar grupo personalizado en Ibuffer
 (add-hook 'ibuffer-mode-hook 'switch-to-my-ibuffer-groups)
 

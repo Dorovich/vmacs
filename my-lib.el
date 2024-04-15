@@ -85,7 +85,13 @@
       (set-face-attribute face nil :inherit 'fixed-pitch)))
   (set-face-attribute 'org-table nil :height 1.0)
   (set-face-attribute 'org-formula nil :height 1.0))
-  ;; (set-face-attribute 'org-verbatim nil :foreground "#aaaacc"))
+
+(defun my-eshell-prompt-fn ()
+  (concat
+   (if (string= (eshell/pwd) (getenv "HOME"))
+       "~"
+     (eshell/basename (eshell/pwd)))
+   " $ "))
 
 ;; Otras cosas que he hecho por diversión
 (defmacro ++ (&rest args)
