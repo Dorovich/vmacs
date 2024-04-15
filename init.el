@@ -120,7 +120,7 @@
 						  (name . ,(rx bol "*GNU Emacs*" eol))
 						  (name . ,(rx bol "*Async-native-compile-log*" eol)))))))
 
-;; Cambiar marcador de eshell
+;; Un poco de eshell
 (setq eshell-prompt-function 'my-eshell-prompt-fn
       eshell-highlight-prompt t)
 
@@ -138,7 +138,7 @@
 (keymap-global-set "M-o" 'other-window)
 (keymap-global-set "<mouse-8>" 'previous-buffer)
 (keymap-global-set "<mouse-9>" 'next-buffer)
-(keymap-global-set "<f6>" 'revert-buffer)
+(keymap-global-set "<f5>" 'revert-buffer)
 
 ;; Mostrar batería y hora en mi portátil
 (when is-laptop
@@ -201,7 +201,7 @@
   :defer t
   :commands load-theme)
 
-(use-themes standard nil "<f5>")
+(use-themes standard nil "<f6>")
 
 ;; Deshacer puro y duro
 (use-package undo-fu

@@ -86,6 +86,7 @@
   (set-face-attribute 'org-table nil :height 1.0)
   (set-face-attribute 'org-formula nil :height 1.0))
 
+;; Cambiar marcador de eshell
 (defun my-eshell-prompt-fn ()
   (concat
    (if (string= (eshell/pwd) (getenv "HOME"))
