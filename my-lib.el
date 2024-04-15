@@ -1,19 +1,19 @@
 ;; -*- lexical-binding: t -*-
 
 ;; ¿estoy en los ordenadores de la uni?
-(defconst is-uni (string-match
-		   (rx letter num (zero-or-one letter) (= 3 num) "pc" (= 2 num))
-		   (system-name)))
+(defconst in-uni-p (string-match
+		    (rx letter num (zero-or-one letter) (= 3 num) "pc" (= 2 num))
+		    (system-name)))
 
 ;; ¿estoy en el portatil?
-(defconst is-laptop (string-match
-		      (rx "colmena")
-		      (system-name)))
+(defconst in-laptop-p (string-match
+		       (rx "colmena")
+		       (system-name)))
 
 ;; ¿estoy en ordenador principal?
-(defconst is-desktop (string-match
-		       (rx "vidonet")
-		       (system-name)))
+(defconst in-desktop-p (string-match
+			(rx "vidonet")
+			(system-name)))
 
 ;; Recargar configuración
 (defun reload-init-file ()
@@ -94,7 +94,28 @@
      (eshell/basename (eshell/pwd)))
    " $ "))
 
-;; Otras cosas que he hecho por diversión
+;; ¡Redactar y desredactar!
+;; github.com/sachac/.emacs.d/blob/gh-pages/Sacha.org#try-redacting
+(defun redact (beg end &optional func)
+  "Redact from ‘beg’ to ‘end’."
+  (interactive "r")
+  (let ((overlay (make-overlay beg end)))
+    (overlay-put overlay 'redact t)
+    (overlay-put overlay 'display
+		 (cond
+		  ((functionp func)
+		   (funcall func))
+		  ((stringp func)
+		   func)
+		  (t (make-string (- end beg) ?x))))))
+
+(defun unredact ()
+  (interactive)
+  (mapc 'delete-overlay
+	(seq-filter (lambda (overlay) (overlay-get overlay 'redact))
+		    (overlays-in (point-min) (point-max)))))
+
+;; Para tirar dados (tail-r)
 (defmacro ++ (&rest args)
   "Returns the sum of ‘args’ plus 1."
   `(+ 1 ,@args))

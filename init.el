@@ -3,6 +3,10 @@
 ;; Definiciones de funciones
 (load-file (expand-file-name "my-lib.el" user-emacs-directory))
 
+;; Identifíquese
+(setq user-full-name "Dorovich"
+      user-mail-address "silverdovi25@gmail.com")
+
 ;; Recordar archivos más recientes
 (recentf-mode 1)
 
@@ -51,9 +55,6 @@
 
 ;; Completar mejor
 (setq completion-styles '(substring basic emacs22))
-
-;; Cambiar ventana con alt+flechas
-(windmove-default-keybindings 'meta)
 
 ;; Buscador para eww
 (setq eww-search-prefix "https://frogfind.com/?q=")
@@ -141,7 +142,7 @@
 (keymap-global-set "<f5>" 'revert-buffer)
 
 ;; Mostrar batería y hora en mi portátil
-(when is-laptop
+(when in-laptop-p
   (display-battery-mode 1)
   (display-time-mode 1)
   (setq display-time-day-and-date t
@@ -259,9 +260,7 @@
 
 ;; Preparar org-mode
 (use-package org
-  :defer t
   :ensure nil
-  ;; :custom-face (org-indent ((t (:inherit fixed-pitch))))
   :config
   (setq org-ellipsis "⬎"
 	org-fold-catch-invisible-edits 'show-and-error
@@ -297,7 +296,6 @@
 
 ;; Preparar dired
 (use-package dired
-  :ensure nil
   :defer t
   :hook (dired-mode . dired-hide-details-mode)
   :config
@@ -319,6 +317,13 @@
   (add-to-list 'dabbrev-ignored-buffer-modes 'doc-view-mode)
   (add-to-list 'dabbrev-ignored-buffer-modes 'pdf-view-mode)
   (add-to-list 'dabbrev-ignored-buffer-modes 'tags-table-mode))
+
+;; Moverse de ventana con las flechitas
+(use-package windmove
+  :bind (("<f2> <right>" . windmove-right)
+	 ("<f2> <left>" . windmove-left)
+	 ("<f2> <up>" . windmove-up)
+	 ("<f2> <down>" . windmove-down)))
 
 ;; Modo mejorado para PDFs
 (use-package pdf-tools
