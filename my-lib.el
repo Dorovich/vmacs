@@ -73,6 +73,15 @@
       (color-theme-sanityinc-tomorrow-day)
     (color-theme-sanityinc-tomorrow-night)))
 
+;; Cambiar fuentes
+(defun use-font (f &optional s)
+  (interactive "sFont name: \nnFont size: ")
+  (when (member f (font-family-list))
+    (set-frame-font (if s
+			(concat f "-" (number-to-string s))
+		      f)
+		    t t)))
+
 ;; Arreglar formato org-mode
 (defun org-fix-format ()
   (interactive)
@@ -116,17 +125,24 @@
 		    (overlays-in (point-min) (point-max)))))
 
 ;; Para tirar dados (tail-r)
-(defmacro ++ (&rest args)
-  "Returns the sum of ‘args’ plus 1."
-  `(+ 1 ,@args))
-
 (defun roll-i (n f v)
   (if (= n 1)
-      (++ v (random f))
-    (roll-i (1- n) f (++ v (random f)))))
+      (+ 1 v (random f))
+    (roll-i (1- n) f (+ 1 v (random f)))))
 
 (defun roll (n f)
   "Roll the dice!"
   (interactive "NNumber of dice: \nnFaces of dice: ")
   (message (number-to-string (roll-i n f 0))))
 
+;; Tirar dados, en eshell
+(defun eshell/roll (&optional expr &rest args)
+  (cond
+   ((null expr) "Specify a roll, such as ’2d6’.")
+   (args "Too many arguments.")
+   (t (let* ((expr-list (split-string expr "d"))
+	     (num (string-to-number (car expr-list)))
+	     (faces (string-to-number (cadr expr-list))))
+	(if (> (length expr-list) 2)
+	    "One dice roll only!"
+	  (format "%s => %d" expr (roll-i num faces 0)))))))

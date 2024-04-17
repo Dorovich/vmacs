@@ -149,21 +149,27 @@
 	display-time-default-load-average nil
 	display-time-format "%R [%a %-e]"))
 
-;; Añadir MELPA e inicializar
+;; Añadir MELPA y NonGNU (si hace falta) e inicializar
 (require 'package)
 (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
+(when (null (assoc "nongnu" package-archives))
+  (add-to-list 'package-archives '("nongnu" . "https://elpa.nongnu.org/nongnu/") t))
+
 (package-initialize)
 (unless package-archive-contents
   (package-refresh-contents))
 
 ;; Preparar use-package y seguir compilando el fichero
 (eval-and-compile
+  (unless (package-installed-p 'use-package)
+    (package-install 'use-package))
   (setq use-package-always-ensure t
 	use-package-compute-statistics t
 	use-package-expand-minimally t))
 
 ;; Mantener el directorio de configuración limpio
 (use-package no-littering
+  :demand t
   :config
   (setq custom-file (no-littering-expand-etc-file-name "custom.el"))
   (add-to-list 'recentf-exclude (recentf-expand-file-name no-littering-var-directory))
@@ -208,14 +214,13 @@
 (use-package undo-fu
   :init
   (global-unset-key (kbd "C-z"))
-  :bind (([remap undo] . 'undo-fu-only-undo)
-	 ([remap undo-redo] . 'undo-fu-only-redo)
+  :bind (("<remap> <undo>" . 'undo-fu-only-undo)
+	 ("<remap> <undo-redo>" . 'undo-fu-only-redo)
 	 ("C-z" . 'undo-fu-only-undo)
 	 ("C-S-z" . 'undo-fu-only-redo)))
 
 ;; Ventanita de autocompletado
 (use-package corfu
-  :demand t
   :config
   (global-corfu-mode 1)
   (setq tab-always-indent 'complete
@@ -260,6 +265,7 @@
 
 ;; Preparar org-mode
 (use-package org
+  :defer t
   :ensure nil
   :config
   (setq org-ellipsis "⬎"
@@ -296,6 +302,7 @@
 
 ;; Preparar dired
 (use-package dired
+  :ensure nil
   :defer t
   :hook (dired-mode . dired-hide-details-mode)
   :config
@@ -320,6 +327,7 @@
 
 ;; Moverse de ventana con las flechitas
 (use-package windmove
+  :ensure nil
   :bind (("<f2> <right>" . windmove-right)
 	 ("<f2> <left>" . windmove-left)
 	 ("<f2> <up>" . windmove-up)
@@ -334,6 +342,7 @@
 
 ;; Cliente de IRC
 (use-package erc
+  :ensure nil
   :commands (erc erc-tls erc-ssl)
   :config
   (setq erc-kill-server-buffer-on-quit t
