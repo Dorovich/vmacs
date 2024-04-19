@@ -97,6 +97,7 @@
 
 ;; Cambiar marcador de eshell
 (defun my-eshell-prompt-fn ()
+  "Change the eshell prompt."
   (concat
    (if (string= (eshell/pwd) (getenv "HOME"))
        "~"
@@ -106,7 +107,7 @@
 ;; ¡Redactar y desredactar!
 ;; github.com/sachac/.emacs.d/blob/gh-pages/Sacha.org#try-redacting
 (defun redact (beg end &optional func)
-  "Redact from ‘beg’ to ‘end’."
+  "Redact from ‘beg’ to ‘end’ of region."
   (interactive "r")
   (let ((overlay (make-overlay beg end)))
     (overlay-put overlay 'redact t)
@@ -119,6 +120,7 @@
 		  (t (make-string (- end beg) ?x))))))
 
 (defun unredact ()
+  "Delete the redaction overlay of the selected region."
   (interactive)
   (mapc 'delete-overlay
 	(seq-filter (lambda (overlay) (overlay-get overlay 'redact))
@@ -126,17 +128,19 @@
 
 ;; Para tirar dados (tail-r)
 (defun roll-i (n f v)
+  "Roll the dice, recursively!"
   (if (= n 1)
       (+ 1 v (random f))
     (roll-i (1- n) f (+ 1 v (random f)))))
 
 (defun roll (n f)
-  "Roll the dice!"
+  "Roll the dice! ‘n’ dice of ‘f’ number of faces."
   (interactive "NNumber of dice: \nnFaces of dice: ")
   (message (number-to-string (roll-i n f 0))))
 
 ;; Tirar dados, en eshell
 (defun eshell/roll (&optional expr &rest args)
+  "Roll dice. ‘expr’ should be a dice expression such as 2d6."
   (cond
    ((null expr) "Specify a roll, such as ’2d6’.")
    (args "Too many arguments.")
@@ -146,3 +150,8 @@
 	(if (> (length expr-list) 2)
 	    "One dice roll only!"
 	  (format "%s => %d" expr (roll-i num faces 0)))))))
+
+;; Subir archivos a envs.sh
+(defun eshell/0file (file)
+  "Obtain an url to a ‘file’, after uploading it to envs.sh."
+  (shell-command (concat "curl -F\"file=@" file "\" https://envs.sh")) nil nil)
