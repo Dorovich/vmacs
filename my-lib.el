@@ -48,30 +48,59 @@
 (defmacro use-themes (name &optional light toggle-key)
   (let ((__mds (eq name 'modus))
 	(__std (eq name 'standard))
-	(__tmr (eq name 'tomorrow)))
+	(__sol (eq name 'solarized))
+	(__alt (eq name 'alt)))
     `(progn
-       (require ,(cond (__mds ''modus-themes)
-		       (__std ''standard-themes)
-		       (__tmr ''color-theme-sanityinc-tomorrow)))
+       (require ,@(cond (__mds '('modus-themes))
+		       (__std '('standard-themes))
+		       (__sol '('solarized-theme))
+		       (__alt '(nil nil t))))
        (if ,light
 	   ,(cond (__mds '(modus-themes-load-theme 'modus-operandi))
 		  (__std '(standard-themes-load-light))
-		  (__tmr '(color-theme-sanityinc-tomorrow-day)))
+		  (__sol '(load-theme 'solarized-selenized-light t))
+		  (__alt '(progn (load-theme 'adwaita t) (set-cursor-color "#151515"))))
 	 ,(cond (__mds '(modus-themes-load-theme 'modus-vivendi))
 		(__std '(standard-themes-load-dark))
-		(__tmr '(color-theme-sanityinc-tomorrow-night))))
+		(__sol '(load-theme 'solarized-selenized-dark t))
+		(__alt '(progn (load-theme 'wombat t) (set-cursor-color "#fefefe")))))
        (when ,toggle-key
 	 (keymap-global-set ,toggle-key
 			    ,(cond (__mds ''modus-themes-toggle)
 				   (__std ''standard-themes-toggle)
-				   (__tmr ''color-theme-sanityinc-tomorrow-toggle)))))))
+				   (__sol ''color-theme-solarized-toggle)
+				   (__alt ''color-theme-alt-toggle)))))))
 
-(defun color-theme-sanityinc-tomorrow-toggle ()
+(defun theme-switch (a b)
+  "Toggle between themes `a' and `b'. All other themes are disabled."
+  (let ((theme (if (member a custom-enabled-themes) b a)))
+    (disable-all-themes)
+    (load-theme theme t)
+    theme))
+
+(defun theme-switch-with-cursor-color (a b ca cb)
+  "Toggle between themes ‘a’ and ‘b’. All other themes are disabled. Also toggle between cursor colors ‘ca’ for ‘a’ and ‘cb’ for ‘b’."
+  (if (eq (theme-switch a b) a)
+      (set-cursor-color ca)
+    (set-cursor-color cb)))
+
+(defun color-theme-solarized-toggle ()
+  "Toggle between light and dark solarized themes."
   (interactive)
-  "Toggle between night and day tomorrow themes."
-  (if (member 'sanityinc-tomorrow-night custom-enabled-themes)
-      (color-theme-sanityinc-tomorrow-day)
-    (color-theme-sanityinc-tomorrow-night)))
+  (require 'solarized-theme)
+  (theme-switch 'solarized-selenized-dark 'solarized-selenized-light))
+
+(defun color-theme-alt-toggle ()
+  "Toggle between light and dark custom themes."
+  (interactive)
+  (theme-switch-with-cursor-color 'wombat 'adwaita "#fefefe" "#151515"))
+
+;; Desactivar todos los temas
+(defun disable-all-themes ()
+  (interactive)
+  "Disable all active themes."
+  (dolist (i custom-enabled-themes)
+    (disable-theme i)))
 
 ;; Cambiar fuentes
 (defun use-font (f &optional s)

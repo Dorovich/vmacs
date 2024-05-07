@@ -1,4 +1,5 @@
 elpa/
 var/
 etc/gnus/
+etc/eshell/
 etc/custom.el

@@ -31,7 +31,7 @@
 
 ;; Parámetros por defecto de la ventana
 (setq default-frame-alist '((alpha . 100)
-                            (vertical-scroll-bars . nil)
+                            (vertical-scroll-bars . t)
                             (horizontal-scroll-bars . nil)
                             (ns-appearance . dark)
                             (ns-transparent-titlebar . t)

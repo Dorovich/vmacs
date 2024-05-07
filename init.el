@@ -203,12 +203,12 @@
 	standard-dark-palette-overrides '((bg-main "#151515"))
 	standard-themes-headings '((t . (1.4)))))
 
-;; Colores para menor contraste
-(use-package color-theme-sanityinc-tomorrow
+;; Solarizando
+(use-package solarized-theme
   :defer t
   :commands load-theme)
 
-(use-themes standard nil "<f6>")
+(use-themes alt t "<f6>")
 
 ;; Deshacer puro y duro
 (use-package undo-fu
@@ -345,7 +345,11 @@
   :ensure nil
   :commands (erc erc-tls erc-ssl)
   :config
-  (setq erc-kill-server-buffer-on-quit t
+  (setq erc-nick "vido25"
+	erc-user-full-name "Vido"
+	erc-email-userid "vido"
+	erc-system-name "vidonet"
+	rc-kill-server-buffer-on-quit t
 	erc-kill-buffer-on-part t
 	erc-kill-queries-on-quit t)
   (require 'erc-dcc)
