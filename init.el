@@ -91,6 +91,9 @@
 ;; No usar tamaño de los carácteres
 (setq frame-resize-pixelwise t)
 
+;; Desactivar la barra de desplazamiento en el minibúfer
+;; (set-window-scroll-bars (minibuffer-window) nil nil)
+
 ;; Fuentes de prosa
 (set-face-attribute 'variable-pitch nil :family "Noto Serif")
 (add-hook 'text-mode-hook 'turn-on-visual-line-mode)
@@ -200,6 +203,9 @@
         standard-themes-bold-constructs t
         standard-themes-italic-constructs t
         standard-themes-disable-other-themes t
+	standard-light-palette-overrides '((fg-main "#2e3446")
+					   (bg-main "#ededed")
+					   (bg-completion bg-hl-line))
 	standard-dark-palette-overrides '((bg-main "#151515"))
 	standard-themes-headings '((t . (1.4)))))
 
@@ -208,7 +214,7 @@
   :defer t
   :commands load-theme)
 
-(use-themes alt t "<f6>")
+(use-themes standard t "<f6>")
 
 ;; Deshacer puro y duro
 (use-package undo-fu
