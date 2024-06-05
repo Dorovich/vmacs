@@ -152,6 +152,12 @@
 	display-time-default-load-average nil
 	display-time-format "%R [%a %-e]"))
 
+;; Indentación para Java
+(add-hook 'java-mode-hook (lambda ()
+                            (setq c-basic-offset 4
+                                  tab-width 4
+                                  indent-tabs-mode nil)))
+
 ;; Añadir MELPA y NonGNU (si hace falta) e inicializar
 (require 'package)
 (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
@@ -252,7 +258,8 @@
 
 ;; Complecion vertical
 (use-package vertico
-  :demand t
+  ;; :demand t
+  :defer 1
   :config
   (vertico-mode 1)
   (vertico-multiform-mode 1)
@@ -301,6 +308,7 @@
 
 ;; Mostrar aciertos
 (use-package anzu
+  :defer 1
   :config
   (global-anzu-mode 1)
   (keymap-global-set "<remap> <query-replace>" 'anzu-query-replace)
@@ -317,6 +325,7 @@
 
 ;; Marcar saltos
 (use-package pulsar
+  :defer 1
   :config
   (pulsar-global-mode 1)
   (keymap-global-set "<f8>" 'pulsar-pulse-line))

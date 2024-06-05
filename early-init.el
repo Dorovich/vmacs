@@ -10,10 +10,10 @@
 
 ;; Recoger basura cuando se está inactivo durante 15s
 (defvar k-gc-timer
-  (run-with-idle-timer 15 t
-                       (lambda ()
-                         (message "Garbage Collector has run for %.06fsec"
-                                  (k-time (garbage-collect))))))
+  (run-with-idle-timer 15 t 'garbage-collect))
+;; (lambda ()
+;;   (message "Garbage Collector has run for %.06fsec"
+;;            (k-time (garbage-collect))))))
 
 ;; Colocar caché en un lugar mejor
 (when (fboundp 'startup-redirect-eln-cache)
