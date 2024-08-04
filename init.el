@@ -258,8 +258,7 @@
 
 ;; Complecion vertical
 (use-package vertico
-  ;; :demand t
-  :defer 1
+  :demand t
   :config
   (vertico-mode 1)
   (vertico-multiform-mode 1)
@@ -281,7 +280,7 @@
   :defer t
   :ensure nil
   :config
-  (setq org-ellipsis "⬎"
+  (setq org-ellipsis "" ; "⬎"
 	org-fold-catch-invisible-edits 'show-and-error
 	org-fontify-todo-headline t
 	org-fontify-whole-heading-line t
@@ -298,13 +297,13 @@
 	image-use-external-converter t))
 
 ;; Retoques a Org mode
-(use-package org-modern
-  :hook ((org-mode . org-modern-mode)
-	 (org-agenda-finalize . org-modern-agenda))
-  :config
-  (set-face-attribute 'org-modern-label nil :height 1.0)
-  (setq org-modern-list '((43 . "‣") (45 . "–") (42 . "•"))
-	org-modern-table nil))
+;; (use-package org-modern
+;;   :hook ((org-mode . org-modern-mode)
+;; 	 (org-agenda-finalize . org-modern-agenda))
+;;   :config
+;;   (set-face-attribute 'org-modern-label nil :height 1.0)
+;;   (setq org-modern-list '((43 . "‣") (45 . "–") (42 . "•"))
+;; 	org-modern-table nil))
 
 ;; Mostrar aciertos
 (use-package anzu
@@ -325,7 +324,6 @@
 
 ;; Marcar saltos
 (use-package pulsar
-  :defer 1
   :config
   (pulsar-global-mode 1)
   (keymap-global-set "<f8>" 'pulsar-pulse-line))
