@@ -83,13 +83,13 @@ Por último, compilamos e instalamos (para más info sobre las CFLAGS usadas ver
 *¡Y ya está!* Ahora puedes ejecutar =make clean= para borrar los archivos intermedios de compilación para liberar algo de espacio, o =sudo make uninstall= cuando decidas dejar de usar Emacs.
 
 * Referencias
-- /[[https://akrl.sdf.org/#orgc15a10d][The original magic Emacs garbage collection hack]]/, Andrea Corallo.
-- /[[https://systemcrafters.net/emacs-from-scratch/][Emacs From Scratch]]/, David Wilson (aka /Systemcrafters/)
-- /[[https://protesilaos.com/emacs/][My packages and/or custom code for GNU Emacs]]/, Protesilaos Stavrou.
-- /[[https://www.youtube.com/playlist?list=PL5--8gKSku15e8lXf7aLICFmAHQVo0KXX][Configuring Emacs]]/, Derek Taylor (aka /DistroTube/)
-- /[[https://jwiegley.github.io/use-package/][A use-package declaration for simplifying your .emacs]]/, John Wiegley.
-- /[[https://github.com/emacs-tw/awesome-emacs][Awesome Emacs]]/, Emacs community @ Taiwan.
-- /([[https://karthinks.com/software/more-batteries-included-with-emacs/][More]]) [[https://karthinks.com/software/batteries-included-with-emacs/][Batteries included with Emacs]]/, Karthinks
-- /[[https://batsov.com/articles/2011/11/30/the-ultimate-collection-of-emacs-resources/][The Ultimate Collection of Emacs Resources]]/, Bozhidar Batsov
-- /[[https://gist.github.com/abidanBrito/2b5e447f191bb6bb70c9b6fe6f9e7956#file-build-emacs-sh][Build GNU Emacs from source.]]/, Abidán Brito
-- /[[https://howardabrams.com/hamacs/][My Emacs Configuration]]/, Howard Abrams
+- Andrea Corallo. /[[https://akrl.sdf.org/#orgc15a10d][The original magic Emacs garbage collection hack]]/.
+- David Wilson (aka /Systemcrafters/). /[[https://systemcrafters.net/emacs-from-scratch/][Emacs From Scratch]]/.
+- Protesilaos Stavrou. /[[https://protesilaos.com/emacs/][My packages and/or custom code for GNU Emacs]]/.
+- Derek Taylor (aka /DistroTube/). /[[https://www.youtube.com/playlist?list=PL5--8gKSku15e8lXf7aLICFmAHQVo0KXX][Configuring Emacs]]/.
+- John Wiegley. /[[https://jwiegley.github.io/use-package/][A use-package declaration for simplifying your .emacs]]/.
+- Emacs community @ Taiwan. /[[https://github.com/emacs-tw/awesome-emacs][Awesome Emacs]]/.
+- Karthinks. /([[https://karthinks.com/software/more-batteries-included-with-emacs/][More]]) [[https://karthinks.com/software/batteries-included-with-emacs/][Batteries included with Emacs]]/.
+- Bozhidar Batsov. /[[https://batsov.com/articles/2011/11/30/the-ultimate-collection-of-emacs-resources/][The Ultimate Collection of Emacs Resources]]/.
+- Abidán Brito. /[[https://gist.github.com/abidanBrito/2b5e447f191bb6bb70c9b6fe6f9e7956#file-build-emacs-sh][Build GNU Emacs from source]]/.
+- Howard Abrams. /[[https://howardabrams.com/hamacs/][My Emacs Configuration]]/.
