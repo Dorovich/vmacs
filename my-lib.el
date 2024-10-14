@@ -10,6 +10,11 @@
 		       (rx "colmena")
 		       (system-name)))
 
+;; ¿estoy en el portatil del trabajo (BSC)?
+(defconst in-bsc-laptop-p (string-match
+			   (rx "BSC-8488191165")
+			   (system-name)))
+
 ;; ¿estoy en ordenador principal?
 (defconst in-desktop-p (string-match
 			(rx "vidonet")

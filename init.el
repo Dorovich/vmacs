@@ -91,6 +91,10 @@
 ;; No usar tamaño de los carácteres
 (setq frame-resize-pixelwise t)
 
+;; Fuente más grande para el portátil
+(when in-bsc-laptop-p
+  (set-face-attribute 'default nil :height 160))
+
 ;; Desactivar la barra de desplazamiento en el minibúfer
 ;; (set-window-scroll-bars (minibuffer-window) nil nil)
 
