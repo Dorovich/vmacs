@@ -1,4 +1,4 @@
-;;; -*- lexical-binding: t; -*-
+;; -*- lexical-binding: t; -*-
 
 (require 'package)
 (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
@@ -47,6 +47,8 @@
   (load-file (expand-file-name "kernel.el" user-emacs-directory))
   ;;(set-face-attribute 'default nil :height 160)
   (set-face-attribute 'variable-pitch nil :family "Noto Serif")
+  (put 'upcase-region 'disabled nil)
+  (put 'downcase-region 'disabled nil)
   :hook
   (text-mode . turn-on-visual-line-mode)
   (text-mode . variable-pitch-mode))
@@ -117,15 +119,14 @@
   :ensure t
   :hook
   (after-init . global-undo-tree-mode)
-  :init
-  (setq undo-tree-visualizer-timestamps t
-	undo-tree-visualizer-diff t
-	undo-limit 800000
-	undo-strong-limit 12000000
-	undo-outer-limit 120000000)
-  :config
-  (setq undo-tree-history-directory-alist
-	'(("." . "~/.config/emacs/var/undo-cache"))))
+  :custom
+  (undo-limit 800000)
+  (undo-outer-limit 120000000)
+  (undo-strong-limit 12000000)
+  (undo-tree-history-directory-alist
+   '(("." . "~/.config/emacs/var/undo-cache")))
+  (undo-tree-visualizer-diff t)
+  (undo-tree-visualizer-timestamps t))
 
 (use-package org
   :defer t
@@ -151,9 +152,11 @@
   :ensure nil
   :defer t
   :hook (dired-mode . dired-hide-details-mode)
+  :custom
+  (dired-kill-when-opening-new-dired-buffer t)
   :config
-  (setq dired-kill-when-opening-new-dired-buffer t)
-  (define-key dired-mode-map (kbd "DEL") 'dired-up-directory))
+  (define-key dired-mode-map (kbd "DEL") 'dired-up-directory)
+  (put 'dired-find-alternate-file 'disabled nil))
 
 (use-package magit
   :defer t
