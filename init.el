@@ -1,9 +1,13 @@
+;;; -*- lexical-binding: t; -*-
+
 (require 'package)
 (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
 
 (use-package emacs
   :ensure nil
   :custom
+  (backward-delete-char-untabify-method 'hungry)
+  (completion--cycle-threshold 3)
   (completion-ignore-case t)
   (echo-keystrokes 0.02)
   (ediff-window-setup-function 'ediff-setup-windows-plain)
@@ -25,7 +29,6 @@
   (use-dialog-box nil)
   (use-short-answers t)
   (warning-minimum-level :emergency)
-  (backward-delete-char-untabify-method 'hungry)
   :init
   (delete-selection-mode 1)
   (electric-pair-mode 1)
@@ -35,16 +38,15 @@
   (menu-bar-mode -1)
   (recentf-mode 1)
   (save-place-mode 1)
-
-
   (savehist-mode 1)
   (scroll-bar-mode -1)
   (set-default-coding-systems 'utf-8)
-  (set-face-attribute 'default nil :height 160)
   (show-paren-mode 1)
   (tool-bar-mode -1)
   :config
   (load-file (expand-file-name "kernel.el" user-emacs-directory))
+  ;;(set-face-attribute 'default nil :height 160)
+  (set-face-attribute 'variable-pitch nil :family "Noto Serif")
   :hook
   (text-mode . turn-on-visual-line-mode)
   (text-mode . variable-pitch-mode))
@@ -75,8 +77,14 @@
   (evil-want-keybinding nil)
   :config
   (evil-set-undo-system 'undo-tree)
+  (evil-set-leader '(normal visual) (kbd ","))
 
-  (evil-define-key '(normal visual)'global (kbd "ñ") 'evil-ex)
+  (evil-define-key '(normal visual) 'global (kbd "ñ") 'evil-ex)
+  (evil-define-key 'normal 'global (kbd "<leader> g") 'magit-status)
+  (evil-define-key 'normal 'global (kbd "<leader> r") 'query-replace)
+  (evil-define-key 'normal 'global (kbd "<leader> t") 'eshell)
+  (evil-define-key 'normal 'global (kbd "U") 'evil-redo)
+  (evil-define-key 'normal 'global (kbd "g b") 'list-buffers)
 
   (evil-define-key 'normal 'global (kbd "gcc")
     (lambda ()
@@ -97,8 +105,11 @@
 (use-package evil-collection
   :defer t
   :ensure t
+  :custom
+  (evil-collection-want-find-usages-bindings t)
   :hook
-  (minibuffer-setup . (lambda () (local-set-key (kbd "C-j") 'exit-minibuffer)))
+  (minibuffer-setup . (lambda ()
+			(local-set-key (kbd "C-j") 'exit-minibuffer)))
   (evil-mode . evil-collection-init))
 
 (use-package undo-tree
@@ -145,5 +156,59 @@
   (define-key dired-mode-map (kbd "DEL") 'dired-up-directory))
 
 (use-package magit
+  :defer t
   :ensure t
   :commands magit-status)
+
+(use-package corfu
+  :defer t
+  :ensure t
+  :hook
+  (after-init . global-corfu-mode)
+  :config
+  (global-corfu-mode 1))
+
+(use-package eshell
+  :defer t
+  :ensure nil
+  :custom
+  (eshell-highlight-prompt t)
+  :config
+  (defun my-eshell-prompt-fn ()
+    "Change the eshell prompt."
+    (concat
+     (if (string= (eshell/pwd) (getenv "HOME"))
+	 "~"
+       (eshell/basename (eshell/pwd)))
+     " $ "))
+  (setq eshell-prompt-function 'my-eshell-prompt-fn)
+  
+  (defun eshell/0file (file)
+    "Obtain an url to a ‘file’, after uploading it to envs.sh."
+    (shell-command (concat "curl -F\"file=@" file "\" https://envs.sh"))))
+
+(use-package eat
+  :defer t
+  :ensure t
+  :commands eat
+  :hook
+  ((eshell-load . eat-eshell-visual-command-mode)
+   (eshell-load . eat-eshell-mode))
+  :custom
+  (eat-enable-mouse t)
+  (eat-kill-buffer-on-exit t))
+
+(use-package standard-themes
+  :ensure t
+  :custom
+  (standard-dark-palette-overrides '((bg-main "#151515")))
+  (standard-light-palette-overrides '((bg-main "#f7f7f7")
+				      (fg-main "#191c27")))
+  (standard-themes-bold-constructs t)
+  (standard-themes-disable-other-themes t)
+  (standard-themes-headings '((t . (1.4))))
+  (standard-themes-italic-constructs t)
+  (standard-themes-mixed-fonts t)
+  :config
+  (keymap-global-set "<f6>" 'standard-themes-toggle)
+  (standard-themes-load-light))

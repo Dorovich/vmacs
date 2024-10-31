@@ -1,4 +1,9 @@
+;;; -*- lexical-binding: t; -*-
+
 (setq gc-cons-threshold #x40000000)
+
+(defvar k-gc-timer
+  (run-with-idle-timer 15 t 'garbage-collect))
 
 (when (fboundp 'startup-redirect-eln-cache)
   (startup-redirect-eln-cache
