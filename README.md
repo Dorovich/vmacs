@@ -44,4 +44,4 @@ build-essential gcc-12 g++-12 libgccjit0 libgccjit-12-dev autoconf libjansson4 l
 - Bozhidar Batsov. *[The Ultimate Collection of Emacs Resources](https://batsov.com/articles/2011/11/30/the-ultimate-collection-of-emacs-resources/)*.
 - Abidán Brito. *[Build GNU Emacs from source](https://gist.github.com/abidanBrito/2b5e447f191bb6bb70c9b6fe6f9e7956#file-build-emacs-sh)*.
 - Howard Abrams. *[My Emacs Configuration](https://howardabrams.com/hamacs/)*.
-- Rahul M. Juliato. *[Emacs-Kick(starter)](https://github.com/LionyxML/emacs-kick)*
+- Rahul M. Juliato. *[Emacs-Kick(starter)](https://github.com/LionyxML/emacs-kick)*.
