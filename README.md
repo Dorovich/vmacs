@@ -32,3 +32,16 @@ Asegúrate de tener las dependencias a mano. En Debian y derivados las esenciale
 ```
 build-essential gcc-12 g++-12 libgccjit0 libgccjit-12-dev autoconf libjansson4 libjansson-dev
 ```
+
+## Inspiración
+- Andrea Corallo. *[The original magic Emacs garbage collection hack](https://akrl.sdf.org/#orgc15a10d)*.
+- David Wilson (aka *Systemcrafters*). *[Emacs From Scratch](https://systemcrafters.net/emacs-from-scratch/)*.
+- Protesilaos Stavrou. *[My packages and/or custom code for GNU Emacs](https://protesilaos.com/emacs/)*.
+- Derek Taylor (aka *DistroTube*). *[Configuring Emacs](https://www.youtube.com/playlist?list=PL5--8gKSku15e8lXf7aLICFmAHQVo0KXX)*.
+- John Wiegley. *[A use-package declaration for simplifying your .emacs](https://jwiegley.github.io/use-package/)*.
+- Emacs community @ Taiwan. *[Awesome Emacs](https://github.com/emacs-tw/awesome-emacs)*.
+- Karthinks. *([More](https://karthinks.com/software/more-batteries-included-with-emacs/)) [Batteries included with Emacs](https://karthinks.com/software/batteries-included-with-emacs/)*.
+- Bozhidar Batsov. *[The Ultimate Collection of Emacs Resources](https://batsov.com/articles/2011/11/30/the-ultimate-collection-of-emacs-resources/)*.
+- Abidán Brito. *[Build GNU Emacs from source](https://gist.github.com/abidanBrito/2b5e447f191bb6bb70c9b6fe6f9e7956#file-build-emacs-sh)*.
+- Howard Abrams. *[My Emacs Configuration](https://howardabrams.com/hamacs/)*.
+- Rahul M. Juliato. *[Emacs-Kick(starter)](https://github.com/LionyxML/emacs-kick)*
