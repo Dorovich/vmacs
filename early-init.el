@@ -33,7 +33,7 @@
 (setq default-frame-alist '((alpha . 100)
                             (vertical-scroll-bars . t)
                             (horizontal-scroll-bars . nil)
-                            (ns-appearance . dark)
+                            ;; (ns-appearance . dark)
                             (ns-transparent-titlebar . t)
                             (left-fringe . 10)
                             (right-fringe . 10)))

@@ -195,6 +195,7 @@
 
 ;; Colores rebuenos
 (use-package modus-themes
+  :if (display-graphic-p)
   :defer t
   :commands load-theme
   :config
@@ -206,6 +207,7 @@
 
 ;; Otros colores chulos
 (use-package standard-themes
+  :if (display-graphic-p)
   :defer t
   :commands load-theme
   :config
@@ -221,10 +223,12 @@
 
 ;; Solarizando
 (use-package solarized-theme
+  :if (display-graphic-p)
   :defer t
   :commands load-theme)
 
-(use-themes standard t "<f6>")
+(when (display-graphic-p)
+  (use-themes standard t "<f6>"))
 
 ;; Deshacer puro y duro
 (use-package undo-fu
@@ -237,6 +241,7 @@
 
 ;; Ventanita de autocompletado
 (use-package corfu
+  :if (display-graphic-p)
   :config
   (global-corfu-mode 1)
   (setq tab-always-indent 'complete
@@ -262,6 +267,7 @@
 
 ;; Complecion vertical
 (use-package vertico
+  :if (display-graphic-p)
   :demand t
   :config
   (vertico-mode 1)
@@ -275,6 +281,7 @@
 
 ;; Información sobre funciones y variables
 (use-package marginalia
+  :if (display-graphic-p)
   :after (:any vertico icomplete-vertical fido-vertical)
   :config
   (marginalia-mode 1))
@@ -352,6 +359,7 @@
 
 ;; Modo mejorado para PDFs
 (use-package pdf-tools
+  :if (display-graphic-p)
   :magic ("%PDF" . pdf-view-mode)
   :init
   (pdf-loader-install)
