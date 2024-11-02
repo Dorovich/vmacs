@@ -35,11 +35,11 @@
   (electric-quote-mode 1)
   (file-name-shadow-mode 1)
   (global-auto-revert-mode 1)
-  (menu-bar-mode -1)
   (recentf-mode 1)
   (save-place-mode 1)
   (savehist-mode 1)
   (set-default-coding-systems 'utf-8)
+  (show-paren-mode 1)
   :config
   (load-file (expand-file-name "kernel.el" user-emacs-directory))
   ;;(set-face-attribute 'default nil :height 160)
