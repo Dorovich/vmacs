@@ -39,10 +39,7 @@
   (recentf-mode 1)
   (save-place-mode 1)
   (savehist-mode 1)
-  (scroll-bar-mode -1)
   (set-default-coding-systems 'utf-8)
-  (show-paren-mode 1)
-  (tool-bar-mode -1)
   :config
   (load-file (expand-file-name "kernel.el" user-emacs-directory))
   ;;(set-face-attribute 'default nil :height 160)
@@ -84,7 +81,7 @@
   (evil-define-key '(normal visual) 'global (kbd "ñ") 'evil-ex)
   (evil-define-key 'normal 'global (kbd "<leader> g") 'magit-status)
   (evil-define-key 'normal 'global (kbd "<leader> r") 'query-replace)
-  (evil-define-key 'normal 'global (kbd "<leader> t") 'eshell)
+  (evil-define-key 'normal 'global (kbd "<leader> t") 'eat)
   (evil-define-key 'normal 'global (kbd "U") 'evil-redo)
   (evil-define-key 'normal 'global (kbd "g b") 'list-buffers)
 
@@ -151,12 +148,27 @@
 (use-package dired
   :ensure nil
   :defer t
-  :hook (dired-mode . dired-hide-details-mode)
+  :hook
+  (dired-mode . dired-hide-details-mode)
   :custom
   (dired-kill-when-opening-new-dired-buffer t)
   :config
   (define-key dired-mode-map (kbd "DEL") 'dired-up-directory)
   (put 'dired-find-alternate-file 'disabled nil))
+
+(use-package erc
+  :ensure nil
+  :defer t
+  :commands (erc erc-tls erc-ssl)
+  :custom
+  (erc-kill-buffer-on-part t)
+  (erc-kill-queries-on-quit t)
+  (erc-kill-server-buffer-on-quit t)
+  (erc-nick "vido25")
+  (erc-system-name "vidonet")
+  (erc-user-full-name "Vido")
+  :config
+  (add-to-list 'erc-dcc-auto-masks "TNW!.*@.*"))
 
 (use-package magit
   :defer t
@@ -167,9 +179,7 @@
   :defer t
   :ensure t
   :hook
-  (after-init . global-corfu-mode)
-  :config
-  (global-corfu-mode 1))
+  (after-init . global-corfu-mode))
 
 (use-package eshell
   :defer t
@@ -214,4 +224,4 @@
   (standard-themes-mixed-fonts t)
   :config
   (keymap-global-set "<f6>" 'standard-themes-toggle)
-  (standard-themes-load-light))
+  (standard-themes-load-dark))

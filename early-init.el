@@ -9,3 +9,7 @@
   (startup-redirect-eln-cache
     (convert-standard-filename
       (expand-file-name "var/eln-cache/" user-emacs-directory))))
+
+(push '(menu-bar-lines . 0) default-frame-alist)
+(push '(tool-bar-lines . 0) default-frame-alist)
+(push '(vertical-scroll-bars) default-frame-alist)
