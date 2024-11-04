@@ -29,6 +29,10 @@
   (use-dialog-box nil)
   (use-short-answers t)
   (warning-minimum-level :emergency)
+  (menu-bar-mode nil)
+  (tool-bar-mode nil)
+  (scroll-bar-mode nil)
+  (user-full-name "Dorovich")
   :init
   (delete-selection-mode 1)
   (electric-pair-mode 1)
@@ -42,7 +46,7 @@
   (show-paren-mode 1)
   :config
   (load-file (expand-file-name "kernel.el" user-emacs-directory))
-  ;;(set-face-attribute 'default nil :height 160)
+  ;; (set-face-attribute 'default nil :height 160)
   (set-face-attribute 'variable-pitch nil :family "Noto Serif")
   (put 'upcase-region 'disabled nil)
   (put 'downcase-region 'disabled nil)
@@ -169,6 +173,30 @@
   (erc-user-full-name "Vido")
   :config
   (add-to-list 'erc-dcc-auto-masks "TNW!.*@.*"))
+
+(use-package ibuffer
+  :ensure nil
+  :defer t
+  :commands ibuffer
+  :custom
+  (ibuffer-expert t)
+  (ibuffer-show-empty-filter-groups nil)
+  (ibuffer-display-summary nil)
+  (ibuffer-saved-filter-groups `(("default"
+				  ("Dired" (mode . dired-mode))
+				  ("ERC" (mode . erc-mode))
+				  ("Magit" (or (name . ,(rx bol "magit:"))
+					       (name . ,(rx bol "magit-"))))
+				  ("Emacs" (or (name . ,(rx bol "*scratch*" eol))
+					       (name . ,(rx bol "*Messages*" eol))
+					       (name . ,(rx bol "*Bookmark List*" eol))
+					       (name . ,(rx bol "*GNU Emacs*" eol))
+					       (name . ,(rx bol "*Async-native-compile-log*" eol)))))))
+  :config
+  (defalias 'list-buffers 'ibuffer)
+  :hook
+  (ibuffer-mode . (lambda ()
+		    (ibuffer-switch-to-saved-filter-groups "default"))))
 
 (use-package magit
   :defer t
