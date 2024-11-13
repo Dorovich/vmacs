@@ -44,12 +44,12 @@
   (show-paren-mode 1)
   (advice-add 'display-startup-echo-area-message :override 'ignore)
   :config
+  (load (expand-file-name "kernel.el" user-emacs-directory))
   (global-set-key (kbd "C-x C-b") 'buffer-menu)
   ;; (set-face-attribute 'default nil :height 160)
-  (set-face-attribute 'variable-pitch nil :family "Noto Serif")
+  (set-face-attribute 'variable-pitch nil :family "DejaVu Serif")
   (put 'upcase-region 'disabled nil)
   (put 'downcase-region 'disabled nil)
-  (load "kernel.el")
   :hook
   (text-mode . turn-on-visual-line-mode)
   (text-mode . variable-pitch-mode)
@@ -90,6 +90,7 @@
   (evil-define-key 'normal 'global (kbd "<leader> t") 'eshell)
   (evil-define-key 'normal 'global (kbd "U") 'evil-redo)
   (evil-define-key 'normal 'global (kbd "g b") 'buffer-menu)
+  (evil-define-key 'normal dired-mode-map (kbd "DEL") 'dired-up-directory)
 
   (evil-define-key 'normal 'global (kbd "gcc")
     (lambda ()
@@ -154,12 +155,10 @@
 (use-package dired
   :ensure nil
   :defer t
-  :hook
-  (dired-mode . dired-hide-details-mode)
   :custom
   (dired-kill-when-opening-new-dired-buffer t)
+  (dired-listing-switches "-AlhG --time-style=iso")
   :config
-  (define-key dired-mode-map (kbd "DEL") 'dired-up-directory)
   (put 'dired-find-alternate-file 'disabled nil))
 
 (use-package magit
