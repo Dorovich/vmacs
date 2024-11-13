@@ -84,7 +84,7 @@
   (evil-set-leader '(normal visual) (kbd ","))
 
   (evil-define-key '(normal visual) 'global (kbd "ñ") 'evil-ex)
-  (evil-define-key 'insert 'global (kbd "C-c") 'evil-force-normal-state)
+  (evil-define-key '(insert visual) 'global (kbd "C-c") 'evil-force-normal-state)
   (evil-define-key 'normal 'global (kbd "<leader> g") 'magit-status)
   (evil-define-key 'normal 'global (kbd "<leader> r") 'query-replace)
   (evil-define-key 'normal 'global (kbd "<leader> t") 'eshell)
@@ -124,6 +124,7 @@
   :hook
   (after-init . global-undo-tree-mode)
   :custom
+  (undo-tree-auto-save-history nil)
   (undo-limit 800000)
   (undo-outer-limit 120000000)
   (undo-strong-limit 12000000)
@@ -177,3 +178,12 @@
   :config
   (load-theme 'gruber-darker t))
 
+(use-package minions
+  :defer t
+  :ensure t
+  :hook
+  (after-init . minions-mode)
+  :custom
+  (minions-mode-line-lighter "∑m")
+  :config
+  (minions-mode 1))
