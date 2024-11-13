@@ -38,10 +38,10 @@
 	       (indent-tabs-mode . t)
 	       (show-trailing-whitespace . t)))
 
-(defun use-my-c-style ()
+(defun my-c-config ()
   (set-fill-column 80)
   (display-fill-column-indicator-mode 1)
   (c-set-style "linux-kernel"))
 
-(add-hook 'c-mode-hook 'use-my-c-style)
-(add-hook 'c++-mode-hook 'use-my-c-style)
+(add-hook 'c-mode-hook 'my-c-config)
+(add-hook 'c++-mode-hook 'my-c-config)

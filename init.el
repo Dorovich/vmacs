@@ -7,11 +7,13 @@
   :ensure nil
   :custom
   (backward-delete-char-untabify-method 'hungry)
+  (compile-command "make -j $(nproc)")
   (completion--cycle-threshold 3)
   (completion-ignore-case t)
   (echo-keystrokes 0.02)
   (ediff-window-setup-function 'ediff-setup-windows-plain)
   (eww-search-prefix "https://frogfind.com/?q=")
+  (frame-inhibit-implied-resize t)
   (frame-resize-pixelwise t)
   (global-auto-revert-non-file-buffers t)
   (history-length 25)
@@ -29,10 +31,6 @@
   (use-dialog-box nil)
   (use-short-answers t)
   (warning-minimum-level :emergency)
-  (menu-bar-mode nil)
-  (tool-bar-mode nil)
-  (scroll-bar-mode nil)
-  (user-full-name "Dorovich")
   :init
   (delete-selection-mode 1)
   (electric-pair-mode 1)
@@ -44,15 +42,18 @@
   (savehist-mode 1)
   (set-default-coding-systems 'utf-8)
   (show-paren-mode 1)
+  (advice-add 'display-startup-echo-area-message :override 'ignore)
   :config
-  (load-file (expand-file-name "kernel.el" user-emacs-directory))
+  (global-set-key (kbd "C-x C-b") 'buffer-menu)
   ;; (set-face-attribute 'default nil :height 160)
   (set-face-attribute 'variable-pitch nil :family "Noto Serif")
   (put 'upcase-region 'disabled nil)
   (put 'downcase-region 'disabled nil)
+  (load "kernel.el")
   :hook
   (text-mode . turn-on-visual-line-mode)
-  (text-mode . variable-pitch-mode))
+  (text-mode . variable-pitch-mode)
+  (prog-mode . toggle-truncate-lines))
 
 (use-package no-littering
   :ensure t
@@ -63,9 +64,9 @@
   (add-to-list 'recentf-exclude (recentf-expand-file-name no-littering-var-directory))
   (add-to-list 'recentf-exclude (recentf-expand-file-name no-littering-etc-directory))
   (when (bound-and-true-p recentf-mode)
-    (load-file recentf-save-file))
+    (load recentf-save-file))
   (when (bound-and-true-p savehist-mode)
-    (load-file savehist-file)))
+    (load savehist-file)))
 
 (use-package evil
   :ensure t
@@ -83,11 +84,12 @@
   (evil-set-leader '(normal visual) (kbd ","))
 
   (evil-define-key '(normal visual) 'global (kbd "ñ") 'evil-ex)
+  (evil-define-key 'insert 'global (kbd "C-c") 'evil-force-normal-state)
   (evil-define-key 'normal 'global (kbd "<leader> g") 'magit-status)
   (evil-define-key 'normal 'global (kbd "<leader> r") 'query-replace)
-  (evil-define-key 'normal 'global (kbd "<leader> t") 'eat)
+  (evil-define-key 'normal 'global (kbd "<leader> t") 'eshell)
   (evil-define-key 'normal 'global (kbd "U") 'evil-redo)
-  (evil-define-key 'normal 'global (kbd "g b") 'list-buffers)
+  (evil-define-key 'normal 'global (kbd "g b") 'buffer-menu)
 
   (evil-define-key 'normal 'global (kbd "gcc")
     (lambda ()
@@ -160,44 +162,6 @@
   (define-key dired-mode-map (kbd "DEL") 'dired-up-directory)
   (put 'dired-find-alternate-file 'disabled nil))
 
-(use-package erc
-  :ensure nil
-  :defer t
-  :commands (erc erc-tls erc-ssl)
-  :custom
-  (erc-kill-buffer-on-part t)
-  (erc-kill-queries-on-quit t)
-  (erc-kill-server-buffer-on-quit t)
-  (erc-nick "vido25")
-  (erc-system-name "vidonet")
-  (erc-user-full-name "Vido")
-  :config
-  (add-to-list 'erc-dcc-auto-masks "TNW!.*@.*"))
-
-(use-package ibuffer
-  :ensure nil
-  :defer t
-  :commands ibuffer
-  :custom
-  (ibuffer-expert t)
-  (ibuffer-show-empty-filter-groups nil)
-  (ibuffer-display-summary nil)
-  (ibuffer-saved-filter-groups `(("default"
-				  ("Dired" (mode . dired-mode))
-				  ("ERC" (mode . erc-mode))
-				  ("Magit" (or (name . ,(rx bol "magit:"))
-					       (name . ,(rx bol "magit-"))))
-				  ("Emacs" (or (name . ,(rx bol "*scratch*" eol))
-					       (name . ,(rx bol "*Messages*" eol))
-					       (name . ,(rx bol "*Bookmark List*" eol))
-					       (name . ,(rx bol "*GNU Emacs*" eol))
-					       (name . ,(rx bol "*Async-native-compile-log*" eol)))))))
-  :config
-  (defalias 'list-buffers 'ibuffer)
-  :hook
-  (ibuffer-mode . (lambda ()
-		    (ibuffer-switch-to-saved-filter-groups "default"))))
-
 (use-package magit
   :defer t
   :ensure t
@@ -209,47 +173,8 @@
   :hook
   (after-init . global-corfu-mode))
 
-(use-package eshell
-  :defer t
-  :ensure nil
-  :custom
-  (eshell-highlight-prompt t)
-  :config
-  (defun my-eshell-prompt-fn ()
-    "Change the eshell prompt."
-    (concat
-     (if (string= (eshell/pwd) (getenv "HOME"))
-	 "~"
-       (eshell/basename (eshell/pwd)))
-     " $ "))
-  (setq eshell-prompt-function 'my-eshell-prompt-fn)
-  
-  (defun eshell/0file (file)
-    "Obtain an url to a ‘file’, after uploading it to envs.sh."
-    (shell-command (concat "curl -F\"file=@" file "\" https://envs.sh"))))
-
-(use-package eat
-  :defer t
+(use-package gruber-darker-theme
   :ensure t
-  :commands eat
-  :hook
-  ((eshell-load . eat-eshell-visual-command-mode)
-   (eshell-load . eat-eshell-mode))
-  :custom
-  (eat-enable-mouse t)
-  (eat-kill-buffer-on-exit t))
-
-(use-package standard-themes
-  :ensure t
-  :custom
-  (standard-dark-palette-overrides '((bg-main "#151515")))
-  (standard-light-palette-overrides '((bg-main "#f7f7f7")
-				      (fg-main "#191c27")))
-  (standard-themes-bold-constructs t)
-  (standard-themes-disable-other-themes t)
-  (standard-themes-headings '((t . (1.4))))
-  (standard-themes-italic-constructs t)
-  (standard-themes-mixed-fonts t)
   :config
-  (keymap-global-set "<f6>" 'standard-themes-toggle)
-  (standard-themes-load-dark))
+  (load-theme 'gruber-darker t))
+
