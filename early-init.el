@@ -3,6 +3,8 @@
 (push '(menu-bar-lines . 0) default-frame-alist)
 (push '(tool-bar-lines . 0) default-frame-alist)
 (push '(vertical-scroll-bars) default-frame-alist)
+(push '(ns-appearance . dark) default-frame-alist)
+(push '(alpha . 100) default-frame-alist)
 
 (setq menu-bar-mode nil
       tool-bar-mode nil

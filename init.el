@@ -173,11 +173,6 @@
   :hook
   (after-init . global-corfu-mode))
 
-(use-package gruber-darker-theme
-  :ensure t
-  :config
-  (load-theme 'gruber-darker t))
-
 (use-package minions
   :defer t
   :ensure t
@@ -187,3 +182,8 @@
   (minions-mode-line-lighter "∑m")
   :config
   (minions-mode 1))
+
+(use-package gruber-darker-theme
+  :ensure t
+  :config
+  (load-theme 'gruber-darker t))
