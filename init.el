@@ -83,14 +83,15 @@
   (evil-set-undo-system 'undo-tree)
   (evil-set-leader '(normal visual) (kbd ","))
 
-  (evil-define-key '(normal visual) 'global (kbd "ñ") 'evil-ex)
   (evil-define-key '(insert visual) 'global (kbd "C-c") 'evil-force-normal-state)
-  (evil-define-key 'normal 'global (kbd "<leader> g") 'magit-status)
-  (evil-define-key 'normal 'global (kbd "<leader> r") 'query-replace)
-  (evil-define-key 'normal 'global (kbd "<leader> t") 'eshell)
-  (evil-define-key 'normal 'global (kbd "U") 'evil-redo)
-  (evil-define-key 'normal 'global (kbd "g b") 'buffer-menu)
+  (evil-define-key '(normal visual) 'global (kbd "ñ") 'evil-ex)
   (evil-define-key 'normal dired-mode-map (kbd "DEL") 'dired-up-directory)
+  (evil-define-key 'normal 'global
+    (kbd "<leader> g") 'magit-status
+    (kbd "<leader> r") 'query-replace
+    (kbd "<leader> t") 'eshell
+    (kbd "U") 'evil-redo
+    (kbd "g b") 'buffer-menu)
 
   (evil-define-key 'normal 'global (kbd "gcc")
     (lambda ()
@@ -132,6 +133,12 @@
    '(("." . "~/.config/emacs/var/undo-cache")))
   (undo-tree-visualizer-diff t)
   (undo-tree-visualizer-timestamps t))
+
+(use-package which-key
+  :ensure nil
+  :defer t
+  :hook
+  (after-init . which-key-mode))
 
 (use-package org
   :defer t
