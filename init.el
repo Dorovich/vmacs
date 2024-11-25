@@ -3,6 +3,8 @@
 (require 'package)
 (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
 
+(setq v/use-evil t)
+
 (use-package emacs
   :ensure nil
   :custom
@@ -31,6 +33,7 @@
   (use-dialog-box nil)
   (use-short-answers t)
   (warning-minimum-level :emergency)
+  (initial-major-mode 'fundamental-mode)
   :init
   (delete-selection-mode 1)
   (electric-pair-mode 1)
@@ -44,9 +47,9 @@
   (show-paren-mode 1)
   (advice-add 'display-startup-echo-area-message :override 'ignore)
   :config
-  (load (expand-file-name "kernel.el" user-emacs-directory))
-  (global-set-key (kbd "C-x C-b") 'buffer-menu)
-  ;; (set-face-attribute 'default nil :height 160)
+  (load (expand-file-name "kernel.el" user-emacs-directory) :noerror :nomessage)
+  (global-set-key (kbd "C-x C-b") 'ibuffer)
+  ; (set-face-attribute 'default nil :height 160)
   (set-face-attribute 'variable-pitch nil :family "DejaVu Serif")
   (put 'upcase-region 'disabled nil)
   (put 'downcase-region 'disabled nil)
@@ -64,11 +67,12 @@
   (add-to-list 'recentf-exclude (recentf-expand-file-name no-littering-var-directory))
   (add-to-list 'recentf-exclude (recentf-expand-file-name no-littering-etc-directory))
   (when (bound-and-true-p recentf-mode)
-    (load recentf-save-file))
+    (load recentf-save-file :noerror :nomessage))
   (when (bound-and-true-p savehist-mode)
-    (load savehist-file)))
+    (load savehist-file :noerror :nomessage)))
 
 (use-package evil
+  :if v/use-evil
   :ensure t
   :defer t
   :hook
@@ -91,7 +95,7 @@
     (kbd "<leader> r") 'query-replace
     (kbd "<leader> t") 'eshell
     (kbd "U") 'evil-redo
-    (kbd "g b") 'buffer-menu)
+    (kbd "g b") 'ibuffer)
 
   (evil-define-key 'normal 'global (kbd "gcc")
     (lambda ()
@@ -110,6 +114,7 @@
 	   (region-end))))))
 
 (use-package evil-collection
+  :if v/use-evil
   :defer t
   :ensure t
   :custom
@@ -135,8 +140,8 @@
   (undo-tree-visualizer-timestamps t))
 
 (use-package which-key
-  :ensure nil
   :defer t
+  :ensure t
   :hook
   (after-init . which-key-mode))
 
@@ -165,7 +170,7 @@
   :defer t
   :custom
   (dired-kill-when-opening-new-dired-buffer t)
-  (dired-listing-switches "-AlhG --time-style=iso")
+  (dired-listing-switches "-AlhG --time-style=iso --color=auto")
   :config
   (put 'dired-find-alternate-file 'disabled nil))
 
@@ -175,6 +180,7 @@
   :commands magit-status)
 
 (use-package corfu
+  :if (display-graphic-p)
   :defer t
   :ensure t
   :hook
@@ -190,7 +196,18 @@
   :config
   (minions-mode 1))
 
-(use-package gruber-darker-theme
+(use-package standard-themes
   :ensure t
+  :custom
+  (standard-dark-palette-overrides '((bg-main "#151515")))
   :config
-  (load-theme 'gruber-darker t))
+  (standard-themes-load-dark)
+  (unless (display-graphic-p)
+    (set-background-color nil)))
+
+(use-package markdown-mode
+  :ensure t
+  :defer t
+  :custom
+  (markdown-command "pandoc -s")
+  (global-set-key [f6] 'standard-themes-toggle))
