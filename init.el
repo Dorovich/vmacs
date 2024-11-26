@@ -4,8 +4,6 @@
 (require 'use-package)
 (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
 
-(setq use-package-compute-statistics t)
-
 (use-package emacs
   :ensure nil
   :custom
@@ -214,7 +212,7 @@
   :hook
   (after-init . minions-mode)
   :custom
-  (minions-mode-line-lighter "∑m")
+  (minions-mode-line-lighter "☞")
   :config
   (minions-mode 1))
 
@@ -231,15 +229,10 @@
   :ensure t
   :custom
   (standard-dark-palette-overrides '((bg-main "#151515")))
+  :hook
+  (after-init . standard-themes-load-dark)
   :config
-  (standard-themes-load-dark)
   (global-set-key [f6] 'standard-themes-toggle))
-
-(use-package modus-themes
-  :if (not (display-graphic-p))
-  :ensure nil
-  :config
-  (load-theme 'modus-vivendi t))
 
 (use-package markdown-mode
   :ensure t
