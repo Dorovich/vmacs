@@ -31,6 +31,9 @@
 
   (add-hook 'post-command-hook #'v/reset-inhibited-vars -100))
 
+(set-language-environment "UTF-8")
+(setq default-input-method nil)
+
 (setq package-enable-at-startup nil
       package-quickstart nil
       package-native-compile t)

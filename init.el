@@ -4,6 +4,8 @@
 (require 'use-package)
 (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
 
+(setq use-package-compute-statistics t)
+
 (use-package emacs
   :ensure nil
   :custom
@@ -25,11 +27,14 @@
   (frame-resize-pixelwise t)
   (global-auto-revert-non-file-buffers t)
   (global-text-scale-adjust-resizes-frames nil)
+  (highlight-nonselected-windows nil)
   (history-length 25)
   (hscroll-margin 2)
   (hscroll-step 1)
+  (ibuffer-expert t)
   (idle-update-delay 1.0)
   (indent-tabs-mode t)
+  (inhibit-startup-buffer-menu t)
   (inhibit-startup-message t)
   (initial-major-mode 'fundamental-mode)
   (initial-scratch-message "")
@@ -45,7 +50,7 @@
   (scroll-conservatively 10)
   (scroll-margin 0)
   (scroll-step 1)
-  (show-paren-delay 0.1)
+  (show-paren-delay 0.02)
   (tab-always-indent 'complete)
   (tab-width 8)
   (use-dialog-box nil)
@@ -55,17 +60,15 @@
   (warning-supress-types '((lexical-binding)))
   (window-resize-pixelwise nil)
   :init
+  (advice-add 'display-startup-echo-area-message :override 'ignore)
   (delete-selection-mode 1)
   (electric-pair-mode 1)
   (electric-quote-mode 1)
   (file-name-shadow-mode 1)
-  (global-auto-revert-mode 1)
   (recentf-mode 1)
   (save-place-mode 1)
   (savehist-mode 1)
-  (set-default-coding-systems 'utf-8)
   (show-paren-mode 1)
-  (advice-add 'display-startup-echo-area-message :override 'ignore)
   :config
   (load (expand-file-name "kernel.el" user-emacs-directory) :noerror :nomessage)
   (global-set-key (kbd "C-x C-b") 'ibuffer)
@@ -74,6 +77,7 @@
   (put 'upcase-region 'disabled nil)
   (put 'downcase-region 'disabled nil)
   :hook
+  (after-init . global-auto-revert-mode)
   (text-mode . turn-on-visual-line-mode)
   (text-mode . variable-pitch-mode)
   (prog-mode . toggle-truncate-lines))
@@ -198,6 +202,7 @@
   :commands magit-status)
 
 (use-package corfu
+  :if (display-graphic-p)
   :defer t
   :ensure t
   :hook
@@ -213,6 +218,14 @@
   :config
   (minions-mode 1))
 
+(use-package uniquify
+  :ensure nil
+  :custom
+  (uniquify-buffer-name-style 'reverse)
+  (uniquify-separator "•")
+  (uniquify-after-kill-buffer-p t)
+  (uniquify-ignore-buffers-re "^\\*"))
+
 (use-package standard-themes
   :if (display-graphic-p)
   :ensure t
@@ -221,6 +234,12 @@
   :config
   (standard-themes-load-dark)
   (global-set-key [f6] 'standard-themes-toggle))
+
+(use-package modus-themes
+  :if (not (display-graphic-p))
+  :ensure nil
+  :config
+  (load-theme 'modus-vivendi t))
 
 (use-package markdown-mode
   :ensure t
