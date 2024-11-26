@@ -1,4 +1,4 @@
-;; -*- lexical-binding: t; -*-
+;; -*- no-byte-compile: t; lexical-binding: t; -*-
 
 (push '(menu-bar-lines . 0) default-frame-alist)
 (push '(tool-bar-lines . 0) default-frame-alist)
@@ -19,3 +19,18 @@
   (startup-redirect-eln-cache
     (convert-standard-filename
       (expand-file-name "var/eln-cache/" user-emacs-directory))))
+
+(unless noninteractive
+  (setq-default inhibit-redisplay t) ; Can cause artifacts
+  (setq-default inhibit-message t)
+
+  (defun v/reset-inhibited-vars ()
+    (setq-default inhibit-redisplay nil) ; Can cause artifacts
+    (setq-default inhibit-message nil)
+    (remove-hook 'post-command-hook #'v/reset-inhibited-vars))
+
+  (add-hook 'post-command-hook #'v/reset-inhibited-vars -100))
+
+(setq package-enable-at-startup nil
+      package-quickstart nil
+      package-native-compile t)

@@ -1,4 +1,4 @@
-;; -*- lexical-binding: t -*-
+;; -*- no-byte-compile: t; lexical-binding: t; -*-
 
 (defun c-lineup-arglist-tabs-only (ignored)
   "Line up argument lists by tabs, not spaces"
@@ -38,10 +38,10 @@
 	       (indent-tabs-mode . t)
 	       (show-trailing-whitespace . t)))
 
-(defun my-c-config ()
+(defun v/set-kernel-c-style ()
   (set-fill-column 80)
   (display-fill-column-indicator-mode 1)
   (c-set-style "linux-kernel"))
 
-(add-hook 'c-mode-hook 'my-c-config)
-(add-hook 'c++-mode-hook 'my-c-config)
+(add-hook 'c-mode-hook 'v/set-kernel-c-style)
+(add-hook 'c++-mode-hook 'v/set-kernel-c-style)

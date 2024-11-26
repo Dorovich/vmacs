@@ -1,39 +1,59 @@
-;; -*- lexical-binding: t; -*-
+;; -*- no-byte-compile: t; lexical-binding: t; -*-
 
-(require 'package)
+(package-initialize)
+(require 'use-package)
 (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
-
-(setq v/use-evil t)
 
 (use-package emacs
   :ensure nil
   :custom
+  (ad-redefinition-action 'accept)
+  (auto-save-default t)
+  (auto-save-include-big-deletions t)
   (backward-delete-char-untabify-method 'hungry)
+  (bidi-inhibit-bpa t)
   (compile-command "make -j $(nproc)")
   (completion--cycle-threshold 3)
   (completion-ignore-case t)
+  (create-lockfiles nil)
   (echo-keystrokes 0.02)
   (ediff-window-setup-function 'ediff-setup-windows-plain)
   (eww-search-prefix "https://frogfind.com/?q=")
+  (ffap-machine-p-known 'reject)
+  (find-file-visit-truename t)
   (frame-inhibit-implied-resize t)
   (frame-resize-pixelwise t)
   (global-auto-revert-non-file-buffers t)
+  (global-text-scale-adjust-resizes-frames nil)
   (history-length 25)
+  (hscroll-margin 2)
+  (hscroll-step 1)
+  (idle-update-delay 1.0)
+  (indent-tabs-mode t)
   (inhibit-startup-message t)
+  (initial-major-mode 'fundamental-mode)
   (initial-scratch-message "")
+  (lazy-highlight-initial-delay 0)
   (load-prefer-newer t)
   (make-backup-files nil)
+  (mouse-yank-at-point t)
   (pixel-scroll-precision-mode t)
   (pixel-scroll-precision-use-momentum nil)
   (read-buffer-completion-ignore-case t)
   (read-file-name-completion-ignore-case t)
   (ring-bell-function 'ignore)
-  (show-paren-delay 0)
+  (scroll-conservatively 10)
+  (scroll-margin 0)
+  (scroll-step 1)
+  (show-paren-delay 0.1)
   (tab-always-indent 'complete)
+  (tab-width 8)
   (use-dialog-box nil)
+  (use-file-dialog 0)
   (use-short-answers t)
   (warning-minimum-level :emergency)
-  (initial-major-mode 'fundamental-mode)
+  (warning-supress-types '((lexical-binding)))
+  (window-resize-pixelwise nil)
   :init
   (delete-selection-mode 1)
   (electric-pair-mode 1)
@@ -72,7 +92,6 @@
     (load savehist-file :noerror :nomessage)))
 
 (use-package evil
-  :if v/use-evil
   :ensure t
   :defer t
   :hook
@@ -114,7 +133,6 @@
 	   (region-end))))))
 
 (use-package evil-collection
-  :if v/use-evil
   :defer t
   :ensure t
   :custom
@@ -149,7 +167,7 @@
   :defer t
   :ensure nil
   :custom
-  (org-ellipsis "") ; "⬎"
+  (org-ellipsis "")
   (org-fold-catch-invisible-edits 'show-and-error)
   (org-fontify-todo-headline t)
   (org-fontify-whole-heading-line t)
@@ -180,7 +198,6 @@
   :commands magit-status)
 
 (use-package corfu
-  :if (display-graphic-p)
   :defer t
   :ensure t
   :hook
@@ -197,17 +214,16 @@
   (minions-mode 1))
 
 (use-package standard-themes
+  :if (display-graphic-p)
   :ensure t
   :custom
   (standard-dark-palette-overrides '((bg-main "#151515")))
   :config
   (standard-themes-load-dark)
-  (unless (display-graphic-p)
-    (set-background-color nil)))
+  (global-set-key [f6] 'standard-themes-toggle))
 
 (use-package markdown-mode
   :ensure t
   :defer t
   :custom
-  (markdown-command "pandoc -s")
-  (global-set-key [f6] 'standard-themes-toggle))
+  (markdown-command "pandoc -s"))
