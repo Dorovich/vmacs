@@ -28,12 +28,11 @@
 	      scroll-conservatively 10
 	      scroll-margin 0
 	      scroll-step 1
-	      setq-default bidi-display-reordering 'left-to-right
+	      bidi-display-reordering 'left-to-right
 	      show-paren-delay 0.02
 	      tab-width 8
 	      use-dialog-box nil
 	      use-file-dialog 0
 	      use-short-answers t
 	      window-resize-pixelwise nil
-	      word-wrap t
-	      )
+	      word-wrap t)

@@ -1,5 +1,8 @@
 ;; -*- no-byte-compile: t; lexical-binding: t; -*-
 
+(load (expand-file-name "default.el" user-emacs-directory) :noerror :nomessage)
+(load (expand-file-name "kernel.el" user-emacs-directory) :noerror :nomessage)
+
 (package-initialize)
 (eval-when-compile
   (require 'use-package))
@@ -29,19 +32,17 @@
   (warning-supress-types '((lexical-binding)))
   :init
   (advice-add 'display-startup-echo-area-message :override 'ignore)
+  (recentf-mode 1)
+  (save-place-mode 1)
+  (savehist-mode 1)
   :config
   (delete-selection-mode 1)
   (electric-pair-mode 1)
   (electric-quote-mode 1)
   (file-name-shadow-mode 1)
   (global-set-key (kbd "C-x C-b") 'ibuffer)
-  (load (expand-file-name "default.el" user-emacs-directory) :noerror :nomessage)
-  (load (expand-file-name "kernel.el" user-emacs-directory) :noerror :nomessage)
   (put 'downcase-region 'disabled nil)
   (put 'upcase-region 'disabled nil)
-  (recentf-mode 1)
-  (save-place-mode 1)
-  (savehist-mode 1)
   ;; (set-face-attribute 'default nil :height 160)
   (set-face-attribute 'variable-pitch nil :family "DejaVu Serif")
   (show-paren-mode 1)
@@ -183,7 +184,7 @@
   :hook
   (after-init . minions-mode)
   :custom
-  (minions-mode-line-lighter "☞"))
+  (minions-mode-line-lighter "µ"))
 
 (use-package uniquify
   :ensure nil
