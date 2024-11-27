@@ -36,4 +36,13 @@
 
 (setq package-enable-at-startup nil
       package-quickstart nil
-      package-native-compile t)
+      package-native-compile t
+      package-archives '(("melpa" . "https://melpa.org/packages/")
+			 ("melpa-stable" . "https://stable.melpa.org/packages/")
+			 ("gnu" . "https://elpa.gnu.org/packages/")
+			 ("nongnu" . "https://elpa.nongnu.org/nongnu/")))
+
+(customize-set-variable 'package-archive-priorities '(("gnu"    . 99)
+						      ("nongnu" . 80)
+						      ("melpa-stable" . 70)
+						      ("melpa"  . 0)))
