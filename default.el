@@ -5,6 +5,8 @@
 	      bidi-paragraph-direction 'left-to-right
 	      completion-ignore-case t
 	      delete-pair-blink-delay 0.02
+	      display-line-numbers-widen t
+	      display-line-numbers-width 3
 	      echo-keystrokes 0.02
 	      ediff-window-setup-function 'ediff-setup-windows-plain
 	      ffap-machine-p-known 'reject

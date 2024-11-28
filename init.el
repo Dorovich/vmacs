@@ -50,6 +50,7 @@
   (after-init . global-auto-revert-mode)
   (text-mode . turn-on-visual-line-mode)
   (text-mode . variable-pitch-mode)
+  (prog-mode . display-line-numbers-mode)
   (prog-mode . toggle-truncate-lines))
 
 (use-package no-littering
@@ -141,6 +142,7 @@
   :defer t
   :ensure nil
   :custom
+  (image-use-external-converter t)
   (org-ellipsis "")
   (org-fold-catch-invisible-edits 'show-and-error)
   (org-fontify-todo-headline t)
@@ -154,8 +156,7 @@
   (org-return-follows-link t)
   (org-special-ctrl-a/e t)
   (org-startup-align-all-tables t)
-  (org-startup-indented t)
-  (image-use-external-converter t))
+  (org-startup-indented t))
 
 (use-package dired
   :ensure nil
@@ -181,10 +182,10 @@
 (use-package minions
   :defer t
   :ensure t
-  :hook
-  (after-init . minions-mode)
   :custom
-  (minions-mode-line-lighter "µ"))
+  (minions-mode-line-lighter "µ")
+  :hook
+  (after-init . minions-mode))
 
 (use-package uniquify
   :ensure nil
