@@ -117,6 +117,19 @@
 			(local-set-key (kbd "C-j") 'exit-minibuffer)))
   (evil-mode . evil-collection-init))
 
+(use-package evil-surround
+  :defer t
+  :ensure t
+  :hook
+  (evil-mode . global-evil-surround-mode))
+
+(use-package evil-numbers
+  :after evil
+  :ensure t
+  :config
+  (evil-define-key '(normal visual) 'global (kbd "g +") 'evil-numbers/inc-at-pt)
+  (evil-define-key '(normal visual) 'global (kbd "g -") 'evil-numbers/dec-at-pt))
+
 (use-package undo-tree
   :defer t
   :ensure t
