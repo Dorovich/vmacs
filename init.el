@@ -43,7 +43,7 @@
   (global-set-key (kbd "C-x C-b") 'ibuffer)
   (put 'downcase-region 'disabled nil)
   (put 'upcase-region 'disabled nil)
-  ;; (set-face-attribute 'default nil :height 160)
+  ;; (set-face-attribute 'default nil :height 150 :family "Ubuntu mono")
   (set-face-attribute 'variable-pitch nil :family "DejaVu Serif")
   (show-paren-mode 1)
   :hook
@@ -157,6 +157,7 @@
   :custom
   (image-use-external-converter t)
   (org-ellipsis "")
+  (org-export-allow-bind-keywords t)
   (org-fold-catch-invisible-edits 'show-and-error)
   (org-fontify-todo-headline t)
   (org-fontify-whole-heading-line t)
@@ -209,10 +210,10 @@
   (uniquify-ignore-buffers-re "^\\*"))
 
 (use-package standard-themes
-  :if (display-graphic-p)
   :ensure t
   :custom
   (standard-dark-palette-overrides '((bg-main "#151515")))
+  (standard-themes-mixed-fonts t)
   :hook
   (after-init . standard-themes-load-dark)
   :config
