@@ -1,9 +1,8 @@
 ;; -*- no-byte-compile: t; lexical-binding: t; -*-
 
-(load (expand-file-name "default.el" user-emacs-directory) :noerror :nomessage)
-(load (expand-file-name "kernel.el" user-emacs-directory) :noerror :nomessage)
+(load (expand-file-name "default.el" user-emacs-directory) t t)
+(load (expand-file-name "kernel.el" user-emacs-directory) t t)
 
-(package-initialize)
 (eval-when-compile
   (require 'use-package))
 
@@ -46,6 +45,8 @@
   ;; (set-face-attribute 'default nil :height 150 :family "Ubuntu mono")
   (set-face-attribute 'variable-pitch nil :family "DejaVu Serif")
   (show-paren-mode 1)
+  (unless (display-graphic-p)
+    (xterm-mouse-mode 1))
   :hook
   (after-init . global-auto-revert-mode)
   (text-mode . turn-on-visual-line-mode)
@@ -62,9 +63,9 @@
   (add-to-list 'recentf-exclude (recentf-expand-file-name no-littering-var-directory))
   (add-to-list 'recentf-exclude (recentf-expand-file-name no-littering-etc-directory))
   (when (bound-and-true-p recentf-mode)
-    (load recentf-save-file :noerror :nomessage))
+    (load recentf-save-file t t))
   (when (bound-and-true-p savehist-mode)
-    (load savehist-file :noerror :nomessage)))
+    (load savehist-file t t)))
 
 (use-package evil
   :ensure t
@@ -113,8 +114,7 @@
   :custom
   (evil-collection-want-find-usages-bindings t)
   :hook
-  (minibuffer-setup . (lambda ()
-			(local-set-key (kbd "C-j") 'exit-minibuffer)))
+  (minibuffer-setup . (lambda () (local-set-key (kbd "C-j") 'exit-minibuffer)))
   (evil-mode . evil-collection-init))
 
 (use-package evil-surround
@@ -136,20 +136,10 @@
   :hook
   (after-init . global-undo-tree-mode)
   :custom
-  (undo-tree-auto-save-history nil)
-  (undo-limit 800000)
-  (undo-outer-limit 120000000)
-  (undo-strong-limit 12000000)
-  (undo-tree-history-directory-alist
-   '(("." . "~/.config/emacs/var/undo-cache")))
+  (undo-tree-auto-save-history t)
+  (undo-tree-history-directory-alist '(("." . "~/.config/emacs/var/undo-cache")))
   (undo-tree-visualizer-diff t)
   (undo-tree-visualizer-timestamps t))
-
-(use-package which-key
-  :defer t
-  :ensure t
-  :hook
-  (after-init . which-key-mode))
 
 (use-package org
   :defer t
@@ -161,16 +151,17 @@
   (org-fold-catch-invisible-edits 'show-and-error)
   (org-fontify-todo-headline t)
   (org-fontify-whole-heading-line t)
-  (org-hide-emphasis-markers t)
-  (org-hide-leading-stars t)
+  (org-hide-emphasis-markers nil)
+  (org-hide-leading-stars nil)
   (org-html-head-include-default-style nil)
   (org-html-htmlize-output-type 'css)
   (org-html-validation-link nil)
+  (org-latex-caption-above nil)
   (org-pretty-entities t)
   (org-return-follows-link t)
   (org-special-ctrl-a/e t)
   (org-startup-align-all-tables t)
-  (org-startup-indented t))
+  (org-startup-indented nil))
 
 (use-package dired
   :ensure nil
@@ -192,32 +183,6 @@
   :ensure t
   :hook
   (after-init . global-corfu-mode))
-
-(use-package minions
-  :defer t
-  :ensure t
-  :custom
-  (minions-mode-line-lighter "µ")
-  :hook
-  (after-init . minions-mode))
-
-(use-package uniquify
-  :ensure nil
-  :custom
-  (uniquify-buffer-name-style 'reverse)
-  (uniquify-separator "•")
-  (uniquify-after-kill-buffer-p t)
-  (uniquify-ignore-buffers-re "^\\*"))
-
-(use-package standard-themes
-  :ensure t
-  :custom
-  (standard-dark-palette-overrides '((bg-main "#151515")))
-  (standard-themes-mixed-fonts t)
-  :hook
-  (after-init . standard-themes-load-dark)
-  :config
-  (global-set-key [f6] 'standard-themes-toggle))
 
 (use-package markdown-mode
   :ensure t

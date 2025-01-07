@@ -35,8 +35,8 @@
 (set-language-environment "UTF-8")
 (setq default-input-method nil)
 
-(setq package-enable-at-startup nil
-      package-quickstart nil
+(setq package-enable-at-startup t
+      package-quickstart t ; recordar usar ’package-quickstart-refresh’
       package-native-compile t
       package-archives '(("melpa" . "https://melpa.org/packages/")
 			 ("melpa-stable" . "https://stable.melpa.org/packages/")
