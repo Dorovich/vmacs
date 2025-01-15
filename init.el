@@ -3,6 +3,9 @@
 (load (expand-file-name "default.el" user-emacs-directory) t t)
 (load (expand-file-name "kernel.el" user-emacs-directory) t t)
 
+(defconst v/gui-p (display-graphic-p)
+  "Whether Emacs is running in graphical mode or not.")
+
 (eval-when-compile
   (require 'use-package))
 
@@ -16,15 +19,14 @@
   (compile-command "make -j $(nproc)")
   (completion-cycle-threshold 3)
   (create-lockfiles nil)
-  (eww-search-prefix "https://frogfind.com/?q=")
   (find-file-visit-truename t)
-  (frame-resize-pixelwise t)
+  (frame-resize-pixelwise v/gui-p)
   (ibuffer-expert t)
   (inhibit-startup-message t)
   (initial-major-mode 'fundamental-mode)
   (initial-scratch-message "")
   (mouse-yank-at-point t)
-  (pixel-scroll-precision-mode t)
+  (pixel-scroll-precision-mode v/gui-p)
   (pixel-scroll-precision-use-momentum nil)
   (tab-always-indent 'complete)
   (warning-minimum-level :emergency)
@@ -42,15 +44,14 @@
   (global-set-key (kbd "C-x C-b") 'ibuffer)
   (put 'downcase-region 'disabled nil)
   (put 'upcase-region 'disabled nil)
-  ;; (set-face-attribute 'default nil :height 150 :family "Ubuntu mono")
-  (set-face-attribute 'variable-pitch nil :family "DejaVu Serif")
+  ;; (set-face-attribute 'variable-pitch nil :family "DejaVu Serif")
   (show-paren-mode 1)
-  (unless (display-graphic-p)
+  (unless v/gui-p
     (xterm-mouse-mode 1))
   :hook
   (after-init . global-auto-revert-mode)
   (text-mode . turn-on-visual-line-mode)
-  (text-mode . variable-pitch-mode)
+  ;; (text-mode . variable-pitch-mode)
   (prog-mode . display-line-numbers-mode)
   (prog-mode . toggle-truncate-lines))
 
@@ -178,7 +179,7 @@
   :commands magit-status)
 
 (use-package corfu
-  :if (display-graphic-p)
+  :if v/gui-p
   :defer t
   :ensure t
   :hook
