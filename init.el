@@ -1,12 +1,16 @@
 ;; -*- no-byte-compile: t; lexical-binding: t; -*-
 
-(load (expand-file-name "default.el" user-emacs-directory) t t)
-(load (expand-file-name "kernel.el" user-emacs-directory) t t)
-
 (defconst v/gui-p (display-graphic-p)
   "Whether Emacs is running in graphical mode or not.")
 
+(defconst v/evil-p t
+  "Whether Emacs should use Evil.")
+
+(load (expand-file-name "default.el" user-emacs-directory) t t)
+(load (expand-file-name "kernel.el" user-emacs-directory) t t)
+
 (eval-when-compile
+  (package-initialize)
   (require 'use-package))
 
 (use-package emacs
@@ -69,6 +73,7 @@
     (load savehist-file t t)))
 
 (use-package evil
+  :if v/evil-p
   :ensure t
   :defer t
   :hook
@@ -110,6 +115,7 @@
 	   (region-end))))))
 
 (use-package evil-collection
+  :after evil
   :defer t
   :ensure t
   :custom
@@ -119,6 +125,7 @@
   (evil-mode . evil-collection-init))
 
 (use-package evil-surround
+  :after evil
   :defer t
   :ensure t
   :hook
@@ -184,9 +191,3 @@
   :ensure t
   :hook
   (after-init . global-corfu-mode))
-
-(use-package markdown-mode
-  :ensure t
-  :defer t
-  :custom
-  (markdown-command "pandoc -s"))

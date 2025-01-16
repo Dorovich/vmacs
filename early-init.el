@@ -1,15 +1,15 @@
 ;; -*- no-byte-compile: t; lexical-binding: t; -*-
 
-;; (push '(menu-bar-lines . 0) default-frame-alist)
-;; (push '(tool-bar-lines . 0) default-frame-alist)
-;; (push '(vertical-scroll-bars) default-frame-alist)
-;; (push '(alpha . 100) default-frame-alist)
-;; (push '(width . 98) default-frame-alist)
-;; (push '(height . 48) default-frame-alist)
+(push '(menu-bar-lines . 0) default-frame-alist)
+(push '(tool-bar-lines . 0) default-frame-alist)
+(push '(vertical-scroll-bars) default-frame-alist)
+(push '(alpha . 100) default-frame-alist)
+(push '(width . 98) default-frame-alist)
+(push '(height . 48) default-frame-alist)
 
-;; (setq menu-bar-mode nil
-;;       tool-bar-mode nil
-;;       scroll-bar-mode nil)
+(setq-default menu-bar-mode nil
+	      tool-bar-mode nil
+	      scroll-bar-mode nil)
 
 (setq gc-cons-threshold most-positive-fixnum)
 (add-hook 'emacs-startup-hook
