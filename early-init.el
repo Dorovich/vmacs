@@ -1,39 +1,49 @@
-;; Calcular tiempos
-(defmacro k-time (&rest body)
-  "Measure and return the time it takes evaluating BODY."
-  `(let ((time (current-time)))
-     ,@body
-     (float-time (time-since time))))
+;; -*- no-byte-compile: t; lexical-binding: t; -*-
 
-;; Margen de 1GB para el recolector de basura
-(setq gc-cons-threshold #x40000000)
+(push '(menu-bar-lines . 0) default-frame-alist)
+(push '(tool-bar-lines . 0) default-frame-alist)
+(push '(vertical-scroll-bars) default-frame-alist)
+(push '(alpha . 100) default-frame-alist)
+(push '(width . 98) default-frame-alist)
+(push '(height . 48) default-frame-alist)
 
-;; Recoger basura cuando se está inactivo durante 15s
-(defvar k-gc-timer
-  (run-with-idle-timer 15 t 'garbage-collect))
-;; (lambda ()
-;;   (message "Garbage Collector has run for %.06fsec"
-;;            (k-time (garbage-collect))))))
+(setq-default menu-bar-mode nil
+	      tool-bar-mode nil
+	      scroll-bar-mode nil)
 
-;; Colocar caché en un lugar mejor
+(setq gc-cons-threshold most-positive-fixnum)
+(add-hook 'emacs-startup-hook
+	  (lambda ()
+	    (setq gc-cons-threshold (* 16 1024 1024))))
+
 (when (fboundp 'startup-redirect-eln-cache)
   (startup-redirect-eln-cache
     (convert-standard-filename
       (expand-file-name "var/eln-cache/" user-emacs-directory))))
 
-;; Desactivar la barra de herramientas y el menú
-(when (fboundp 'tool-bar-mode) (tool-bar-mode -1))
-(when (fboundp 'menu-bar-mode) (menu-bar-mode -1))
+(unless noninteractive
+  (setq-default inhibit-redisplay t) ; Can cause artifacts
+  (setq-default inhibit-message t)
 
-;; No mostrar pantalla de inicio si se está abriendo algo
-(when (cdr command-line-args)
-  (setq inhibit-startup-screen t))
+  (defun v/reset-inhibited-vars ()
+    (setq-default inhibit-redisplay nil) ; Can cause artifacts
+    (setq-default inhibit-message nil)
+    (remove-hook 'post-command-hook #'v/reset-inhibited-vars))
 
-;; Parámetros por defecto de la ventana
-(setq default-frame-alist '((alpha . 100)
-                            (vertical-scroll-bars . t)
-                            (horizontal-scroll-bars . nil)
-                            ;; (ns-appearance . dark)
-                            (ns-transparent-titlebar . t)
-                            (left-fringe . 10)
-                            (right-fringe . 10)))
+  (add-hook 'post-command-hook #'v/reset-inhibited-vars -100))
+
+(set-language-environment "UTF-8")
+(setq default-input-method nil)
+
+(setq package-enable-at-startup t
+      package-quickstart t ; recordar usar ’package-quickstart-refresh’
+      package-native-compile t
+      package-archives '(("melpa" . "https://melpa.org/packages/")
+			 ("melpa-stable" . "https://stable.melpa.org/packages/")
+			 ("gnu" . "https://elpa.gnu.org/packages/")
+			 ("nongnu" . "https://elpa.nongnu.org/nongnu/")))
+
+(customize-set-variable 'package-archive-priorities '(("gnu"    . 99)
+						      ("nongnu" . 80)
+						      ("melpa-stable" . 70)
+						      ("melpa"  . 0)))
