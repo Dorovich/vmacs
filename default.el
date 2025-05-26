@@ -4,7 +4,7 @@
 	      bidi-inhibit-bpa t
 	      bidi-paragraph-direction 'left-to-right
 	      completion-ignore-case t
-	      delete-pair-blink-delay 0.02
+	      delete-pair-blink-delay 0.01
 	      display-line-numbers-widen t
 	      display-line-numbers-width 3
 	      echo-keystrokes 0.02

@@ -4,7 +4,7 @@
   "Whether Emacs is running in graphical mode or not.")
 
 (defconst v/evil-p t
-  "Whether Emacs should use Evil.")
+  "Whether Emacs should use Evil mode.")
 
 (load (expand-file-name "default.el" user-emacs-directory) t t)
 (load (expand-file-name "kernel.el" user-emacs-directory) t t)
@@ -16,7 +16,7 @@
 (use-package emacs
   :ensure nil
   :custom
-  (auto-save-default t)
+  (auto-save-default nil)
   (auto-save-include-big-deletions t)
   (backward-delete-char-untabify-method 'hungry)
   (comment-multi-line t)
@@ -59,6 +59,37 @@
   (prog-mode . display-line-numbers-mode)
   (prog-mode . toggle-truncate-lines))
 
+(use-package dired
+  :ensure nil
+  :defer t
+  :custom
+  (dired-kill-when-opening-new-dired-buffer t)
+  (dired-listing-switches "-AlhG --time-style=iso --color=auto")
+  :config
+  (put 'dired-find-alternate-file 'disabled nil))
+
+(use-package org
+  :defer t
+  :ensure nil
+  :custom
+  (image-use-external-converter t)
+  (org-ellipsis "")
+  (org-export-allow-bind-keywords t)
+  (org-fold-catch-invisible-edits 'show-and-error)
+  (org-fontify-todo-headline t)
+  (org-fontify-whole-heading-line t)
+  (org-hide-emphasis-markers nil)
+  (org-hide-leading-stars nil)
+  (org-html-head-include-default-style nil)
+  (org-html-htmlize-output-type 'css)
+  (org-html-validation-link nil)
+  (org-latex-caption-above nil)
+  (org-pretty-entities t)
+  (org-return-follows-link t)
+  (org-special-ctrl-a/e t)
+  (org-startup-align-all-tables t)
+  (org-startup-indented nil))
+
 (use-package no-littering
   :ensure t
   :demand t
@@ -71,6 +102,11 @@
     (load recentf-save-file t t))
   (when (bound-and-true-p savehist-mode)
     (load savehist-file t t)))
+
+(use-package magit
+  :defer t
+  :ensure t
+  :commands magit-status)
 
 (use-package evil
   :if v/evil-p
@@ -144,46 +180,10 @@
   :hook
   (after-init . global-undo-tree-mode)
   :custom
-  (undo-tree-auto-save-history t)
+  (undo-tree-auto-save-history nil)
   (undo-tree-history-directory-alist '(("." . "~/.config/emacs/var/undo-cache")))
   (undo-tree-visualizer-diff t)
   (undo-tree-visualizer-timestamps t))
-
-(use-package org
-  :defer t
-  :ensure nil
-  :custom
-  (image-use-external-converter t)
-  (org-ellipsis "")
-  (org-export-allow-bind-keywords t)
-  (org-fold-catch-invisible-edits 'show-and-error)
-  (org-fontify-todo-headline t)
-  (org-fontify-whole-heading-line t)
-  (org-hide-emphasis-markers nil)
-  (org-hide-leading-stars nil)
-  (org-html-head-include-default-style nil)
-  (org-html-htmlize-output-type 'css)
-  (org-html-validation-link nil)
-  (org-latex-caption-above nil)
-  (org-pretty-entities t)
-  (org-return-follows-link t)
-  (org-special-ctrl-a/e t)
-  (org-startup-align-all-tables t)
-  (org-startup-indented nil))
-
-(use-package dired
-  :ensure nil
-  :defer t
-  :custom
-  (dired-kill-when-opening-new-dired-buffer t)
-  (dired-listing-switches "-AlhG --time-style=iso --color=auto")
-  :config
-  (put 'dired-find-alternate-file 'disabled nil))
-
-(use-package magit
-  :defer t
-  :ensure t
-  :commands magit-status)
 
 (use-package corfu
   :if v/gui-p
