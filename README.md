@@ -33,6 +33,24 @@ Asegúrate de tener las dependencias a mano. En Debian y derivados las esenciale
 build-essential gcc-12 g++-12 libgccjit0 libgccjit-12-dev autoconf libjansson4 libjansson-dev
 ```
 
+## Configuración
+
+Para configurar cosas básicas (como la fuente, tamaño inicial de la ventana o elementos de la interfaz de usuario que mostrar), se puede utilizar el fichero `.Xresources`. Un ejemplo (mi configuración) es el siguiente:
+
+```
+Emacs.font: Ubuntu mono:pixelsize=18:antialias=true:autohint=true
+Emacs.geometry: 98x48
+Emacs.reverseVideo: true
+Emacs.alpha: 100
+Emacs.scrollBar: false
+Emacs.verticalScrollBars: off
+Emacs.horizontalScrollBars: off
+Emacs.menuBar: false
+Emacs.toolBar: false
+```
+
+Para opciones más avanzadas se pueden editar directamente los ficheros de código fuente en Emacs Lisp, escribiendo el código apropiado.
+
 ## Inspiración
 - Andrea Corallo. *[The original magic Emacs garbage collection hack](https://akrl.sdf.org/#orgc15a10d)*.
 - David Wilson (aka *Systemcrafters*). *[Emacs From Scratch](https://systemcrafters.net/emacs-from-scratch/)*.
