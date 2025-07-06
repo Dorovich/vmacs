@@ -8,8 +8,6 @@
 ## ¿Por dónde empiezo?
 Antes de nada debes *instalar* Emacs. Si ya lo has hecho recomiento que hagas el tutorial interactivo que incluye Emacs donde puedes aprender sus controles básicos. Para iniciarlo pulsa `C-h t`, es decir, “Control+h” seguido de “t”.
 
-En esta configuración uso [Evil](https://github.com/emacs-evil/evil), un paquete que implementa los movimientos de Vim en Emacs, por lo que si ya estás familiarizado con ese programa te resultará fácil.
-
 ### Instalación (binarios)
 Puedes instalar Emacs desde cualquier gestor de paquetes que haya en tu sistema operativo, o de otra distribución binaria. Puede que estas versiones precompiladas no incluyan algunas características como compilación nativa de emacs lisp, treesitter, u optimizaciones propias del compilador. Si te interesa tenerlas, sigue leyendo.
 
