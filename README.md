@@ -6,7 +6,7 @@
 </div>
 
 ## ¿Por dónde empiezo?
-Antes de nada debes *instalar* Emacs. Si ya lo has hecho recomiento que hagas el tutorial interactivo que incluye Emacs donde puedes aprender sus controles básicos. Para iniciarlo pulsa `C-h t`, es decir, “Control+h” seguido de “t”.
+Antes de nada debes *instalar* Emacs. Si ya lo has hecho recomiento que hagas el tutorial interactivo que incluye Emacs donde puedes aprender sus controles básicos. Para iniciarlo pulsa `C-h t`, es decir, **Control+h** seguido de **t**.
 
 ### Instalación (binarios)
 Puedes instalar Emacs desde cualquier gestor de paquetes que haya en tu sistema operativo, o de otra distribución binaria. Puede que estas versiones precompiladas no incluyan algunas características como compilación nativa de emacs lisp, treesitter, u optimizaciones propias del compilador. Si te interesa tenerlas, sigue leyendo.
@@ -36,7 +36,7 @@ build-essential gcc-12 g++-12 libgccjit0 libgccjit-12-dev autoconf libjansson4 l
 Para configurar cosas básicas (como la fuente, tamaño inicial de la ventana o elementos de la interfaz de usuario que mostrar), se puede utilizar el fichero `.Xresources`. Un ejemplo (mi configuración) es el siguiente:
 
 ```
-Emacs.font: Ubuntu mono:pixelsize=18:antialias=true:autohint=true
+Emacs.font: JuliaMono:size=15:antialias=true:autohint=true
 Emacs.geometry: 98x48
 Emacs.reverseVideo: true
 Emacs.alpha: 100
@@ -51,9 +51,9 @@ Para opciones más avanzadas se pueden editar directamente los ficheros de códi
 
 ## Inspiración
 - Andrea Corallo. *[The original magic Emacs garbage collection hack](https://akrl.sdf.org/#orgc15a10d)*.
-- David Wilson (aka *Systemcrafters*). *[Emacs From Scratch](https://systemcrafters.net/emacs-from-scratch/)*.
+- David Wilson (*Systemcrafters*). *[Emacs From Scratch](https://systemcrafters.net/emacs-from-scratch/)*.
 - Protesilaos Stavrou. *[My packages and/or custom code for GNU Emacs](https://protesilaos.com/emacs/)*.
-- Derek Taylor (aka *DistroTube*). *[Configuring Emacs](https://www.youtube.com/playlist?list=PL5--8gKSku15e8lXf7aLICFmAHQVo0KXX)*.
+- Derek Taylor (*DistroTube*). *[Configuring Emacs](https://www.youtube.com/playlist?list=PL5--8gKSku15e8lXf7aLICFmAHQVo0KXX)*.
 - John Wiegley. *[A use-package declaration for simplifying your .emacs](https://jwiegley.github.io/use-package/)*.
 - Emacs community @ Taiwan. *[Awesome Emacs](https://github.com/emacs-tw/awesome-emacs)*.
 - Karthinks. *([More](https://karthinks.com/software/more-batteries-included-with-emacs/)) [Batteries included with Emacs](https://karthinks.com/software/batteries-included-with-emacs/)*.
