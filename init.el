@@ -3,15 +3,15 @@
 (defconst v/gui-p (display-graphic-p)
   "Whether Emacs is running in graphical mode or not.")
 
-(load (expand-file-name "default.el" user-emacs-directory) t t)
-(load (expand-file-name "kernel.el" user-emacs-directory) t t)
+(add-to-list 'load-path (expand-file-name "elisp" user-emacs-directory))
+(load "default" t t)
+(load "kernel" t t)
 
 (eval-when-compile
   (package-initialize)
   (require 'use-package))
 
 (use-package emacs
-  :ensure nil
   :custom
   (auto-save-default nil)
   (auto-save-include-big-deletions t)
@@ -29,6 +29,7 @@
   (mouse-yank-at-point t)
   (pixel-scroll-precision-mode v/gui-p)
   (pixel-scroll-precision-use-momentum nil)
+  (read-extended-command-predicate #'command-completion-default-include-p)
   (tab-always-indent 'complete)
   (warning-minimum-level :emergency)
   (warning-supress-types '((lexical-binding)))
@@ -42,13 +43,14 @@
   (electric-pair-mode 1)
   (electric-quote-mode 1)
   (file-name-shadow-mode 1)
-  (global-set-key (kbd "C-x C-b") 'ibuffer)
   (put 'downcase-region 'disabled nil)
   (put 'upcase-region 'disabled nil)
-  ;; (set-face-attribute 'variable-pitch nil :family "DejaVu Serif")
+  (set-face-attribute 'variable-pitch nil :family "ETBembo")
   (show-paren-mode 1)
   (unless v/gui-p
     (xterm-mouse-mode 1))
+  :bind (("C-x C-b" . 'ibuffer)
+	 ("C-z" . 'ignore))
   :hook
   (after-init . global-auto-revert-mode)
   (text-mode . turn-on-visual-line-mode)
@@ -57,7 +59,6 @@
   (prog-mode . toggle-truncate-lines))
 
 (use-package dired
-  :ensure nil
   :defer t
   :custom
   (dired-kill-when-opening-new-dired-buffer t)
@@ -67,7 +68,6 @@
 
 (use-package org
   :defer t
-  :ensure nil
   :custom
   (image-use-external-converter t)
   (org-ellipsis "")
@@ -109,6 +109,8 @@
   :if v/gui-p
   :defer t
   :ensure t
+  :custom
+  (global-corfu-minibuffer t)
   :hook
   (after-init . global-corfu-mode))
 

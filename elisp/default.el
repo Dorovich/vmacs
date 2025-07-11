@@ -30,8 +30,9 @@
 	      scroll-conservatively 10
 	      scroll-margin 0
 	      scroll-step 1
+	      sentence-end-double-space nil
 	      bidi-display-reordering 'left-to-right
-	      show-paren-delay 0.02
+	      show-paren-delay 0.01
 	      tab-width 8
 	      use-dialog-box nil
 	      use-file-dialog 0
